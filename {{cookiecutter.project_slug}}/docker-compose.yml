@@ -1,0 +1,16 @@
+version: "3.4"
+
+volumes:
+  dev_{{ cookiecutter.project_slug }}_data: {}
+
+services:
+  db:
+    environment:
+      POSTGRES_HOST_AUTH_METHOD: trust
+      POSTGRES_DB: {{ cookiecutter.project_slug }}
+      DATABASE_URL: postgres://postgres@127.0.01:{{ cookiecutter.postgres_port }}/{{ cookiecutter.project_slug }}
+    image: postgres:12-alpine
+    ports:
+      - "{{ cookiecutter.postgres_port }}:5432"
+    volumes:
+      - dev_{{ cookiecutter.project_slug }}_data:/var/lib/postgresql/data

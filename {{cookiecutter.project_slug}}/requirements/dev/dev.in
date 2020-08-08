@@ -1,0 +1,37 @@
+# Dev requirements
+-c ../base/base.in
+
+pyyaml
+black
+isort
+ipython
+jupyterlab
+
+# deploy
+-e git+https://github.com/caktus/invoke-kubesae@v0.0.6#egg=invoke-kubesae
+troposphere
+
+# AWS tools
+awscli
+awslogs
+openshift
+kubernetes-validate
+
+pre-commit
+coverage
+flake8
+importlib-metadata
+
+# For better debugging
+appnope
+pudb
+django-debug-toolbar
+
+# For testing
+pytest
+pytest-cov
+factory_boy
+pytest-django
+{% if cookiecutter.project_type == 'django' %}
+beautifulsoup4
+{% endif %}
