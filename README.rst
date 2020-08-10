@@ -1,8 +1,16 @@
 Caktus Jade Truffle Django Project
 ==================================
 
+Jade Truffle is the Mandarin traslation of the cacti species *blossfeldia liliputana*. The smallest of all cacti. 
+
 Jade Truffle is a `cookiecutter`_ template designed to generate a greenfield Django 3.0
 or Wagtail project.
+
+Jad Truffle is a work in progress. The intention is to make the base project quickly deployable, while
+at the same time allowing for project specific overrides.  
+
+Currently the template is highly tuned to an AWS/EKS deployment methodology using `Django K8s`_, `AWS Web Stacks`_,
+and `K8s Web Cluster`_. The hope is that future work will add to the deployment methods.
 
 Requirements
 ~~~~~~~~~~~~
@@ -14,8 +22,8 @@ Requirements
 Installation
 ~~~~~~~~~~~~
 
-Create a Python virtual envionment with your tool of choice. For purposes
-of these intructions we'll call the envionment ``jade-truffle``.
+Create a Python virtual environment with your tool of choice. For purposes
+of these intructions we'll call the environment ``jade-truffle``.
 
 Enable your environment and install cookiecutter::
 
@@ -36,8 +44,8 @@ The cookiecutter will run through a series of configuration options
 1. Project Name
     * This can be anything you like (e.g. Apple Pie)
 2. Projet Slug:
-    * The slug will be generated from the Project Name, but can be overriden.
-    * The slug will be used in most configuration options in the generated project.
+    * Generated from the Project Name, but can be overriden.
+    * Used in most configuration options in the generated project.
             * ``apple_pie/apple_pie/settings``
             * ``apple_pie/apple_pie/urls.py``
 3. Project Type: ``django`` or ``wagtail``
@@ -48,8 +56,10 @@ The cookiecutter will run through a series of configuration options
 6. Project Domain Name:
     * Defaults to ``caktus-built.com``
 
-
-
+The generated project has a README that details the steps for install.
 
 
 .. _cookiecutter: https://github.com/cookiecutter/cookiecutter
+.. _Django K8s: https://github.com/caktus/ansible-role-django-k8s
+.. _AWS Web Stacks: https://github.com/caktus/ansible-role-aws-web-stacks
+.. _K8s Web Cluster: https://github.com/caktus/ansible-role-k8s-web-cluster

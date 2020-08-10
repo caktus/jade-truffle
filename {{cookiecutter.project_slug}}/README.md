@@ -23,24 +23,18 @@ This project uses [django-sass-processor](https://pypi.org/project/django-sass-p
 A template is one of:
 1. page
   - these should be named `[page_name]_page.html`, lives in the templates/pages directory
-2. block
-  - these should be named `[block_name]_block.html`, lives in the templates/blocks directory
-3. menu
-  - the `wagtailmenus` package has [feelings about this](https://wagtailmenus.readthedocs.io/en/stable/rendering_menus/custom_templates.html#getting-wagtailmenus-to-use-your-custom-menu-templates)
-4. include
+2. include
   - no naming convention, lives in the  templates/includes directory
-5. base
+3. base
   - these are for high-level layout base-templates
 
-#### Stylesheets follow the same convention. Stylesheets for pages live in the styles/pages directory, and so on.
+#### Stylesheets follow the same convention. Stylesheets for pages live in the static/styles/pages directory, and so on.
 
 #### To include a **new scss file** in a template, do the following:
 
 Name your file according to the following convention:
 1. If your scss file is going to be linked to directly from a template, as below, name the file `[template_name].scss`
-2. If your scss file is only going to be imported by another scss file using the `@import` directive, prepend the filename with an underscore: `_[my_sass_file].scss`
-
-then link to it in your template using the django-sass-processor provided `sass_tags`.
+2. If your scss file is only going to be imported by another scss file using the `@import` directive, prepend the filename with an underscore: `_[my_sass_file].scss` then link to it in your template using the django-sass-processor provided `sass_tags`.
 
 {% raw %}
 ```html
@@ -48,13 +42,13 @@ then link to it in your template using the django-sass-processor provided `sass_
 <link href="{% sass_src '[app]/styles/[includes,pages,blocks]/[template-name].scss' %}" rel="stylesheet" type="text/css" />
 ```
 {% endraw %}
-We're doing our best to follow BEM, as it seems particularly well suited for the "Page and Block" architecture of a CMS. [Here's](https://www.smashingmagazine.com/2018/06/bem-for-beginners/) a little reading on BEM.
+We're doing our best to follow BEM, [Here's](https://www.smashingmagazine.com/2018/06/bem-for-beginners/) a little reading on BEM.
 
 
 When styling, keep the following conventions in mind:
 - If you're creating a new template, create a new stylesheet.
 - Every stylesheet has its own brief documentation including
-1. an "Index" describing the contents per BEM "block" (not Wagtail "block")
+1. an "Index" describing the contents per BEM "block".
 2. a description of each BEM "block"
 - Keep it as flat as possible. Try to only nest state changes, like ":hover" or ".open".
 - Is there a variable for that?
