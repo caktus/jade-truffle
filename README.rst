@@ -18,6 +18,7 @@ Requirements
 * pip-tools
 * cookiecutter
 * A virtual environment manager
+* direnv
 
 Installation
 ~~~~~~~~~~~~
@@ -57,6 +58,8 @@ The cookiecutter will run through a series of configuration options
     * Defaults to ``caktus-built.com``
 
 The generated project has a README that details the steps for install.
+
+.. TODO: Add more documentation about the structure of this template.
 
 
 .. _cookiecutter: https://github.com/cookiecutter/cookiecutter

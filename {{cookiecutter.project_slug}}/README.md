@@ -66,12 +66,12 @@ First clone the repository from Github and switch to the new directory:
     $ cd {{ cookiecutter.project_slug }}
 ```
 
-**2. Set up venv**
+**2. Set up virtual environment**
 
 Next, set up your virtual environment:
 
 ```linux
-    # Check that you have python3 >= 3.8 installed
+    # Check that you have python3 installed
     $ which python3
 
     # Create the virtual environment, either with mkvirtualenv:
