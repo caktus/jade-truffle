@@ -52,19 +52,6 @@ ADD . /code/
 
 COPY --from=static_files /code/{{ cookiecutter.project_slug }}/static /code/{{ cookiecutter.project_slug }}/static
 
-FROM base AS test
-
-COPY --from=static_files /code/webpack-stats-production.json /code/webpack-stats.json
-
-RUN set -ex \
-    && BUILD_DEPS=" \
-    git-core \
-    " \
-    && apt-get update && apt-get install -y --no-install-recommends $BUILD_DEPS \
-    && pip-sync requirements/base/base.txt requirements/test/test.txt
-
-RUN pre-commit install
-
 FROM base AS deploy
 
 # Create a group and user to run our app
