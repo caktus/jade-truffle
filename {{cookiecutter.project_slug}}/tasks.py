@@ -30,7 +30,9 @@ def build_ci_images(c):
     c.run("docker-compose -f docker-compose.yml -f docker-compose-test.yml build app")
 
 
-@invoke.task(help={"command": "Passes a command to the container to run (ex: 'ls -la')"})
+@invoke.task(
+    help={"command": "Passes a command to the container to run (ex: 'ls -la')"}
+)
 def run_in_ci_image(c, command):
     """Runs command in the CircleCI test container.
 
@@ -98,7 +100,9 @@ def reset_local_db(c, dump_file=None):
     if not database_url:
         print(".env is missing a DATABASE_URL definition")
         exit(1)
-    c.run(f"pg_restore --no-owner --no-acl --clean --if-exists --dbname {database_url} {dump_file}")
+    c.run(
+        f"pg_restore --no-owner --no-acl --clean --if-exists --dbname {database_url} {dump_file}"
+    )
 
 
 @invoke.task
@@ -112,7 +116,9 @@ def print_ansible_vars(c, var=None):
     if not var:
         var = "k8s_environment_variables"
     with c.cd("deploy/"):
-        c.run(f"ansible {c.config.env} -m debug -a var='{var}' -e '@host_vars/{c.config.env}.yml'")
+        c.run(
+            f"ansible {c.config.env} -m debug -a var='{var}' -e '@host_vars/{c.config.env}.yml'"
+        )
 
 
 @invoke.task
@@ -125,7 +131,9 @@ def ansible_playbook(c, name, extra="", verbosity=1):
 def pod_stats(c):
     """Report total pods vs pod capacity."""
     nodes = yaml.safe_load(c.run("kubectl get nodes -o yaml", hide="out").stdout)
-    pod_capacity = sum([int(item["status"]["capacity"]["pods"]) for item in nodes["items"]])
+    pod_capacity = sum(
+        [int(item["status"]["capacity"]["pods"]) for item in nodes["items"]]
+    )
     pod_total = c.run(
         "kubectl get pods --all-namespaces | grep Running | wc -l", hide="out"
     ).stdout.strip()
@@ -159,7 +167,7 @@ ns.configure(
         "aws": {"region": "us-east-2",},
         "cluster": "{{ cookiecutter.project_slug }}-stack-cluster",
         "container_name": "app",
-        "repository": "774668369775.dkr.ecr.us-east-2.amazonaws.com/learn-appli-14ljm5uijjeox",
+        "repository": "<<Container Repository Here>>",
         "run": {
             "echo": True,
             "pty": True,
