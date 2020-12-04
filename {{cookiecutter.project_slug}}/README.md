@@ -15,7 +15,7 @@ To begin you should have the following applications installed on your local deve
 - git >= 2.26
 - [aws-cli](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html)
 
-
+{% if cookiecutter.css_style == "sass" %}
 ### 🤷‍♂️ **Making changes to templates or stylesheets?**
 This project uses [django-sass-processor](https://pypi.org/project/django-sass-processor/) for sass compilation and stylesheet management.
 
@@ -54,6 +54,7 @@ When styling, keep the following conventions in mind:
 - Is there a variable for that?
 - REM is set up to change size based on screen width. Keep this in mind. You might actually want pixels!
 
+{% endif %}
 
 ### 💪 **Setup Manually**
 
@@ -62,7 +63,7 @@ When styling, keep the following conventions in mind:
 First clone the repository from Github and switch to the new directory:
 
 ```linux
-    $ git clone git@github.com:caktus{{ cookiecutter.project_slug }}.git
+    $ git clone git@github.com:caktus/{{ cookiecutter.project_slug }}.git
     $ cd {{ cookiecutter.project_slug }}
 ```
 

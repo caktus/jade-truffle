@@ -2,6 +2,8 @@
   "project_name": "You Know for kids",
   "project_slug": "{{ cookiecutter.project_name.lower()|replace(' ', '_')|replace('-', '_')|replace('.', '_')|trim() }}",
   "project_type": ["django", "wagtail"],
+  "testing_type": ["django", "pytest"],
+  "css_style": ["sass", "roll-my-own"],
   "postgres_port": "5432",
   "primary_app": "{{ cookiecutter.project_slug }}",
   "project_domain_name": "caktus-built.com"

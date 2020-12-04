@@ -28,10 +28,14 @@ pudb
 django-debug-toolbar
 
 # For testing
+factory_boy
+
+{% if cookiecutter.testing_type == 'pytest' %}
 pytest
 pytest-cov
-factory_boy
 pytest-django
+{% endif %}
+
 {% if cookiecutter.project_type == 'django' %}
 beautifulsoup4
 {% endif %}

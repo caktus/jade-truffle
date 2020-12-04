@@ -2,27 +2,7 @@
 {% load home_tags %}
 
 {% get_tags_for_object result as tags %}
-<li class="search-result">
-    <h5 class="search-result__result-title"><a href="{{ result.url }}">{{ result }}</a></h5>
-    <div class="search-result__content">
-    {% if tags %}
-        <ul class="search-result__tags-list">
-            {% for tag in tags %}
-                <li class="search-result__tag">{{ tag }}</li>
-            {% endfor %}
-        </ul>
-    {% endif %}
-
-    {# Either replace this with highlighted text or find a new place for highlighted text #}
-    {% if result.search_description %}
-        <p class="search-result__result-description">{{ result.search_description|safe }}</p>
-    {% endif %}
-
-    {% if result.url %}
-        {% wagtail_site as site %}
-        {% firstof result.get_site.root_url site.root_url as root_url %}
-        <a href="{{ root_url }}{{ result.url }}" class="search-result__result-url">{{ root_url }}{{ result.url }}</a>
-    {% endif %}
-    </div>
+<li class="JT_STYLE_MISSING">
+    JT_SEARCH_RESULTS
 </li>
 {% endraw %}

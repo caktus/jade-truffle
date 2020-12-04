@@ -1,5 +1,5 @@
 {% raw %}
-{% load static wagtailuserbar sass_tags %}
+{% load static wagtailuserbar %}
 {% load render_bundle from webpack_loader %}
 
 
@@ -31,32 +31,18 @@
     {# Global javascript #}
     {% render_bundle 'main' %}
 
-    {# jaf-bernina-sans family and adelle family fonts #}
-    <link rel="stylesheet" href="https://use.typekit.net/szp3qhg.css">
-
     {# favicon #}
     <link rel="shortcut icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
 
     {# Base stylesheets #}
-    <link href="{% sass_src 'styles/main.scss' %}" rel="stylesheet" type="text/css" />
-    <link href="{% sass_src 'styles/bases/base_page.scss' %}" rel="stylesheet" type="text/css" />
+    <link href="JT_BASE_STYLESHEET" rel="stylesheet" type="text/css" />
 
-    {# Awesomplete #}
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/awesomplete/1.1.5/awesomplete.min.css" integrity="sha256-dOShescFo9s9hVGH7lA2HL6Tdq/GUO77T9/cihQMc/E=" crossorigin="anonymous" />
-
-    <script src="https://kit.fontawesome.com/afdcd155db.js" crossorigin="anonymous"></script>
-        {# hopefully this is temporary-- we need to bring in sekizai to fix this #}
-    {% block add_videojs_to_head %}
-    {% endblock add_videojs_to_head %}
 
     {% block extra_css %}
     {% endblock %}
 </head>
 
-<body class="{% block body_class %}{% endblock %}">
-    {% include 'includes/svg_icons.html'%}
-    <!-- "Skip Navigation" link to allow screen readers to avoid list of nav links. -->
-    <a href="#content-container" class="skip-nav">Skip to main content</a>
+<body class="JT_BODY_CLASS">
 
     {% include 'includes/header.html' %}
 
@@ -64,9 +50,7 @@
 
     {% include 'includes/footer.html' %}
 
-
     {% block extra_js %}{% endblock %}
-    {% block "modal_portal" %}{% endblock %}
 </body>
 </html>
 {% endraw %}

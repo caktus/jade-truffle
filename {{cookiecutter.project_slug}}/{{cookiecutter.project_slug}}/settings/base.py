@@ -30,8 +30,9 @@ INSTALLED_APPS = [
     "apps.{{ cookiecutter.primary_app }}",
     "apps.search",
     "apps.users",
+    {% if cookiecutter.css_style == "sass" -%}
     "sass_processor",
-    "taggit",
+    {% endif %}
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -156,7 +157,9 @@ USE_TZ = True
 STATICFILES_FINDERS = [
     "django.contrib.staticfiles.finders.FileSystemFinder",
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
+    {% if cookiecutter.css_style == "sass" -%}
     "sass_processor.finders.CssFinder",
+    {%- endif %}
 ]
 
 STATICFILES_DIRS = [
@@ -208,11 +211,12 @@ LOGGING = {
     "root": {"handlers": ["console",], "level": "INFO",},
 }
 
+{% if cookiecutter.css_style == "sass" -%}
 # django-sass-processor
 # https://pypi.org/project/django-sass-processor/
 SASS_PROCESSOR_ROOT = STATIC_ROOT
 SASS_PRECISION = 8
-
+{% endif %}
 
 {% if cookiecutter.project_type == 'wagtail'-%}
 # Wagtail settings
@@ -226,7 +230,7 @@ WAGTAILSEARCH_BACKENDS = {
 
 # Base URL to use when referring to full URLs within the Wagtail admin backend -
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
-BASE_URL = os.getenv("DOMAIN", "http://{{ cookiecutter.project_slug }}.org")
+BASE_URL = os.getenv("DOMAIN", "http://{{ cookiecutter.project_slug }}.{{ cookiecutter.project_domain_name }}")
 
 WEBPACK_LOADER = {
     "DEFAULT": {
@@ -251,4 +255,4 @@ ADMINS = os.getenv("ADMINS", [("caktus-{{ cookiecutter.project_slug }}-team", "{
 GENERAL_INQUIRY_EMAIL_RECIPIENTS = [e[1] for e in ADMINS]
 EVENT_SIGNUP_FORM_SUBMISSION_RECIPIENTS = GENERAL_INQUIRY_EMAIL_RECIPIENTS
 
-DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL", "no-reply@{{ cookiecutter.project_slug }}.org")
+DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL", "no-reply@{{ cookiecutter.project_slug }}.{{ cookiecutter.project_domain_name }}")
