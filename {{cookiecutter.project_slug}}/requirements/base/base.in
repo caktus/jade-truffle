@@ -1,6 +1,6 @@
 # base.in
 
-django==3.0.2
+django
 django-dotenv
 django_extensions
 django_model_utils
@@ -10,10 +10,12 @@ django-webpack-loader
 django-model-utils
 django-storages
 django-compressor
+django-taggit
+{% if cookiecutter.css_style == "sass" %}
 django-sass-processor
+{% endif %}
 django-phonenumber-field
 django-honeypot
-django-taggit
 whitenoise
 boto3
 libsass

@@ -1,14 +1,4 @@
 {% raw %}
-<div class="search-pagination">
-    <ul class="search-pagination__content">
-
-        <li class="search-pagination__item"><a {% if page.number != 1 %}href="?query={{ search_query }}&page=1"{% endif %} class="search-pagination__link {% if page.number == 1 %}disabled{% endif %}">First</a></li>
-        <li class="search-pagination__item"><a {% if page.has_previous %}href="?query={{ search_query }}&page={{ page.prev_page_number }}"{% endif %} class="search-pagination__link {% if not page.has_previous %}disabled{% endif %}">Previous</a></li>
-        {% for pg in page.paginator.page_range %}
-            <li class="search-pagination__item {% if pg == page.number %}selected{% endif %}"><a {% if pg != page.number %}href="?query={{ search_query }}&page={{ pg }}"{% endif %} class="search-pagination__link {% if pg == page.number %}disabled{% endif %}" >{{ pg }}</a></li>
-        {% endfor %}
-        <li class="search-pagination__item"><a {% if page.has_next %}href="?query={{ search_query }}&page={{ page.next_page_number }}"{% endif %} class="search-pagination__link {% if not page.has_next %}disabled{% endif %}">Next</a></li>
-        <li class="search-pagination__item"><a {% if page.number != page.paginator.num_pages %}href="?query={{ search_query }}&page={{ page.paginator.num_pages }}"{% endif %} class="search-pagination__link {% if page.number == page.paginator.num_pages %}disabled{% endif %}">Last</a></li>
-    </ul>
+<div class="JT_STYLE_MISSING">
 </div>
 {% endraw %}

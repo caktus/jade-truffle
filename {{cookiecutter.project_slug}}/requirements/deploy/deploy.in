@@ -3,5 +3,5 @@
 
 python3-memcached
 newrelic
-sentry-sdk==0.16.2
+sentry-sdk
 uwsgi

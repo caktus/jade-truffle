@@ -1,40 +1,14 @@
 {% raw %}
 {% extends "base.html" %}
-{% load wagtailcore_tags sass_tags %}
+{% load wagtailcore_tags %}
 
 {% block extra_css %}
-    <link href="{% sass_src 'styles/pages/search_page.scss' %}" rel="stylesheet" type="text/css" />
+    ADD EXTRA CSS
 {% endblock %}
 
 {% block title %}Search{% endblock %}
 
 {% block content %}
-    <h1 class="search-page__heading">Search</h1>
-
-    <form class="search-page__search-bar" action="{% url 'search' %}" method="get">
-        <input class="search-page__search-bar-input" type="text" name="query"{% if search_query %} value="{{ search_query }}"{% endif %}>
-        <input class="search-page__search-bar-submit basic-button" type="submit" value="Search" class="button">
-    </form>
-
-    <div class="search-page__search-content">
-        <div class="search-page__search-summary">
-            <h3>Search results</h3>
-            <p class="search-page__results-count"><span>{{ search_results.paginator.count }}</span> result{{ search_results.paginator.count|pluralize }} {% if search_results.paginator.count == 1 %}was{% else %}were{% endif %} found for <span>"{{ search_query }}"</span></p>
-        </div>
-
-        <div class="search-page__search-results">
-            {% if search_results %}
-                {% include 'search/search_pagination.html' with page=search_results %}
-                <ul class="search-page__search-results-list">
-                    {% for result in search_results %}
-                        {% include 'search/search_result.html' with result=result %}
-                    {% endfor %}
-                </ul>
-                {% include 'search/search_pagination.html' with page=search_results %}
-            {% elif search_query %}
-                <p class="search-page__no-results">No results found</p>
-            {% endif %}
-        </div>
-    </div>
+    ADD YOUR CONTENT
 {% endblock %}
 {% endraw %}
