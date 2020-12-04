@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     "apps.{{ cookiecutter.primary_app }}",
     "apps.search",
     "apps.users",
+    "taggit",
     {% if cookiecutter.css_style == "sass" -%}
     "sass_processor",
     {% endif %}

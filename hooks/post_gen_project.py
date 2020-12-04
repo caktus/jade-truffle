@@ -3,6 +3,7 @@ from pathlib import Path
 
 def check_testing_type():
     if "{{cookiecutter.testing_type}}" == "django":
+        print("REMOVE: pytest.ini")
         Path(Path().cwd(), "pytest.ini").unlink()
 
 
