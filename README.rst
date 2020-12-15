@@ -50,11 +50,16 @@ The cookiecutter will run through a series of configuration options
             * ``apple_pie/apple_pie/settings``
             * ``apple_pie/apple_pie/urls.py``
 3. Project Type: ``django`` or ``wagtail``
-4. Postgres Port: Defaults to [5432]
+
+4. Testing Type: ``django`` or ``pytest``
+
+5. CSS Style: ``sass`` or ``roll-my-own``
+
+6. Postgres Port: Defaults to [5432]
     * This is used for local dev so you can set this to any port you like
-5. Primary App: Will be used as the main app in the projects apps directory.
+7. Primary App: Will be used as the main app in the projects apps directory.
     * For example: ``apple_pie/apps/apple_pie``
-6. Project Domain Name:
+8. Project Domain Name:
     * Defaults to ``caktus-built.com``
 
 The generated project has a README that details the steps for install.
