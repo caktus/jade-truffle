@@ -100,7 +100,7 @@ Link your {{ cookiecutter.project_slug }} profile to the Caktus Main credentials
 
 ```
 [profile {{ cookiecutter.project_slug }}]
-region = us-east-2
+region = <REGION_THIS_PROJECT_IS_IN>
 ```
 
 Now set the ``AWS_PROFILE`` environment variable to use this named profile:
@@ -139,5 +139,5 @@ $ inv staging print-ansible-vars
 To inspect a single variable issue:
 
 ```sh
-$ inv staging project.print-ansible-vars --var="DatabaseAddress"
+$ inv staging project.print-ansible-vars --var="DATABASE_URL"
 ```
