@@ -1,5 +1,6 @@
 # Logs and local files
 .env
+.envrc
 *.db
 *.dump
 *.pgdump
