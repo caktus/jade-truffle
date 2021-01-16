@@ -9,7 +9,11 @@ from troposphere import GetAtt, Join, Output, Parameter, Ref, Template, s3
 template = Template()
 
 bucket_name = template.add_parameter(
-    Parameter("WebsiteBucketName", Description="Name for the website asset bucket", Type="String",),
+    Parameter(
+        "WebsiteBucketName",
+        Description="Name for the website asset bucket",
+        Type="String",
+    ),
 )
 
 website_bucket = template.add_resource(
@@ -19,7 +23,9 @@ website_bucket = template.add_resource(
         AccessControl="PublicRead",
         VersioningConfiguration=s3.VersioningConfiguration(Status="Enabled"),
         DeletionPolicy="Retain",
-        WebsiteConfiguration=s3.WebsiteConfiguration(IndexDocument="index.html",),
+        WebsiteConfiguration=s3.WebsiteConfiguration(
+            IndexDocument="index.html",
+        ),
     )
 )
 

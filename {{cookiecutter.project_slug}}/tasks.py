@@ -164,14 +164,18 @@ ns.add_task(production)
 ns.configure(
     {
         "app": "{{ cookiecutter.project_slug }}_app",
-        "aws": {"region": "us-east-2",},
+        "aws": {
+            "region": "us-east-2",
+        },
         "cluster": "{{ cookiecutter.project_slug }}-stack-cluster",
         "container_name": "app",
         "repository": "<<Container Repository Here>>",
         "run": {
             "echo": True,
             "pty": True,
-            "env": {"COMPOSE_FILE": "docker-compose.yml:docker-compose-deploy.yml",},
+            "env": {
+                "COMPOSE_FILE": "docker-compose.yml:docker-compose-deploy.yml",
+            },
         },
     }
 )
