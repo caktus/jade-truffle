@@ -9,6 +9,6 @@ exclude=migrations,docs,node_modules,{{ cookiecutter.project_slug }}/settings
 ignore =
     E2,    # missing whitespace after ','
     W503,   # line break before binary operator
-	E501,
+    E501,
     F841,   # Line too long
-    E741,   # Ambiguous variable   
+    E741,   # Ambiguous variable
