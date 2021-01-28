@@ -95,7 +95,7 @@ Link your {{ cookiecutter.project_slug }} profile to the Caktus Main credentials
   source_profile = <CAKTUS_MAIN_PROFILE_NAME>
 ```
 
-1. Edit `~/.aws/profile`
+1. Edit `~/.aws/config`
 1. Either add or make sure you have the following filled out.
 
 ```
