@@ -16,15 +16,15 @@ commands:
     steps:
       - restore_cache:
           keys:
-              - v6-pip-dependencies-{{ checksum "requirements/dev/dev.txt" }}
+              - v1-pip-dependencies-{{ checksum "requirements/dev/dev.txt" }}
               # fallback to using the latest cache if no exact match is found
-              - v6-pip-dependencies-
+              - v1-pip-dependencies-
   save_cache_cmd:
     steps:
       - save_cache:
           paths:
             - "env"
-          key: v6-pip-dependencies-{{ checksum "requirements/dev/dev.txt" }}
+          key: v1-pip-dependencies-{{ checksum "requirements/dev/dev.txt" }}
 {% endraw %}
 orbs:
   docker: circleci/docker@1.0.1
