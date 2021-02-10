@@ -72,7 +72,7 @@ $ inv staging deploy --tag=develop-bf47d7b
 
 #### 1. Configure AWS named profile
 
-Learning power uses the CaktusAccessRole to manage the aws resources for {{ cookiecutter.project_slug }}.  
+`jade-truffle` by default uses the CaktusAccessRole to manage the aws resources for {{ cookiecutter.project_slug }}.  
 If you are unsure of what this means, contact Tech Support.  You should be able to find the credentials for that role in lastpass.
 
 Once you have that setup, you should verify in your `~/.aws/credentials` file there is an entry for the main caktus IAM.
