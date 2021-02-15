@@ -188,6 +188,8 @@ MEDIA_S3_CUSTOM_DOMAIN = os.getenv("MEDIA_S3_CUSTOM_DOMAIN", "")
 DEFAULT_FILE_STORAGE = os.getenv(
     "DEFAULT_FILE_STORAGE", "django.core.files.storage.FileSystemStorage"
 )
+# Only set this if you need to override the default bucket permissions
+# See: https://github.com/caktus/jade-truffle/issues/17
 AWS_DEFAULT_ACL = os.getenv("AWS_DEFAULT_ACL")
 AWS_S3_SIGNATURE_VERSION = os.getenv("AWS_S3_SIGNATURE_VERSION", "s3v4")
 AWS_S3_REGION_NAME = os.getenv("AWS_S3_REGION_NAME", "us-east-1")
