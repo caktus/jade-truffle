@@ -8,4 +8,4 @@ INSTALLED_APPS += (
     "django_extensions",
 )
 
-ALLOWED_HOSTS = ["localhost", "172.20.1.211"]
+ALLOWED_HOSTS = ["localhost", ""]

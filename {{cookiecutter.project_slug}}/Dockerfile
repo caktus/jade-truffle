@@ -3,7 +3,7 @@ WORKDIR /code
 ENV PATH /code/node_modules/.bin:$PATH
 COPY package.json package-lock.json webpack.base.config.js webpack.prod.config.js /code/
 RUN npm install --silent
-COPY . /code/
+COPY ./{{ cookiecutter.project_slug }}/static /code/{{ cookiecutter.project_slug }}/static
 RUN npm run build
 
 FROM python:3.8-slim as base

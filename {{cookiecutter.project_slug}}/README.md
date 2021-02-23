@@ -157,7 +157,7 @@ services.
 First add the following line to your .env file:
 
 ```sh
-({{ cookiecutter.project_slug }})$ echo "DATABASE_URL=postgres://postgres@127.0.0.1:{{ cookiecutter.postgres_port }}/{{ cookiecutter.project_slug }}" >> .env
+({{ cookiecutter.project_slug }})$ echo "export DATABASE_URL=postgres://postgres@127.0.0.1:{{ cookiecutter.postgres_port }}/{{ cookiecutter.project_slug }}" >> .envrc
 ```
 
 The `docker-compose.yml` sets up environment variables in a file, ``.postgres``.

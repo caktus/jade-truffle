@@ -1,25 +1,19 @@
 # base.in
 
 django
-django-dotenv
 django_extensions
 django_model_utils
 django-webpack-loader
 dj-database-url
-django-webpack-loader
 django-model-utils
 django-storages
 django-compressor
-django-taggit
 {% if cookiecutter.css_style == "sass" %}
+libsass
 django-sass-processor
 {% endif %}
-django-phonenumber-field
-django-honeypot
 whitenoise
 boto3
-libsass
-phonenumberslite
 
 # Postgres
 psycopg2-binary
@@ -29,4 +23,6 @@ psycopg2-binary
 wagtail
 wagtailfontawesome
 wagtailmenus
+# django-taggit is a requirement of wagtail, but wagtail doesn't require it. Oo
+django-taggit
 {% endif %}
