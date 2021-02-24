@@ -1,16 +1,16 @@
 const webpack = require('webpack');
 const path = require('path');
-const merge = require('webpack-merge');
+const { merge } = require('webpack-merge');
 const baseConfig = require('./webpack.base.config');
 
 const BundleTracker = require('webpack-bundle-tracker');
 //const SentryWebpackPlugin = require('@sentry/webpack-plugin');
 
-module.exports = merge.smart(baseConfig, {
+module.exports = merge(baseConfig, {
     mode: 'production',
     devtool: 'source-map',
     output: {
-        path: path.resolve('./{{ cookiecutter.project_slug }}/static/js/bundles/'),
+        path: path.resolve('./{{cookiecutter.project_slug}}/static/js/bundles/'),
         filename: '[name].js',
     },
     plugins: [
@@ -24,3 +24,4 @@ module.exports = merge.smart(baseConfig, {
         // })
     ]
 });
+

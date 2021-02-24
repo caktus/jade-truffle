@@ -65,10 +65,11 @@ EXPOSE 8000
 # Add any static environment variables needed by Django or your settings file here:
 ENV DJANGO_SETTINGS_MODULE={{ cookiecutter.project_slug }}.settings.deploy
 
-# TODO: [LP-25] Appears the ignore is not working. Look into this. Lots of junk which could hinder debugging
+{% if cookiecutter.css_style == "sass" %}
 RUN DATABASE_URL='' ENVIRONMENT='' DJANGO_SECRET_KEY='dummy' DOMAIN='' python manage.py compilescss
+{% endif %}
 # Call collectstatic (customize the following line with the minimal environment variables needed for manage.py to run):
-RUN DATABASE_URL='' ENVIRONMENT='' DJANGO_SECRET_KEY='dummy' DOMAIN='' python manage.py collectstatic --noinput -c -i *.scss --no-default-ignore
+RUN DATABASE_URL='' ENVIRONMENT='' DJANGO_SECRET_KEY='dummy' DOMAIN='' python manage.py collectstatic --noinput -c {% if cookiecutter.css_style == "sass" %}-i *.scss --no-default-ignore{% endif %}
 
 # Tell uWSGI where to find your wsgi file (change this):
 ENV UWSGI_WSGI_FILE={{ cookiecutter.project_slug }}/wsgi.py
