@@ -9,11 +9,8 @@ To begin you should have the following applications installed on your local deve
 - npm == 6.14.x (comes with node 10)
 - [nvm](https://github.com/nvm-sh/nvm/blob/master/README.md) is not strictly _required_, but will almost certainly be necessary unless you just happen to have Node.js 12.x installed on your machine.
 - [pip](http://www.pip-installer.org/) >= 20
-- [virtualenv](http://www.virtualenv.org/) >= 1.10
-- [virtualenvwrapper](http://pypi.python.org/pypi/virtualenvwrapper) >= 3.0
 - Postgres >= 12
 - git >= 2.26
-- [aws-cli](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html)
 
 {% if cookiecutter.css_style == "sass" %}
 ### 🤷‍♂️ **Making changes to templates or stylesheets?**
@@ -69,20 +66,9 @@ First clone the repository from Github and switch to the new directory:
 
 **2. Set up virtual environment**
 
-Next, set up your virtual environment:
+Next, set up your virtual environment with python3. For example, powering_careers.
 
-```linux
-    # Check that you have python3 installed
-    $ which python3
-
-    # Create the virtual environment, either with mkvirtualenv:
-    $ mkvirtualenv {{ cookiecutter.project_slug }} -p `which python3`
-
-    # or directly (if your system is set up differently than mkvirtualenv assumes):
-    $ python3 -m virtualenv ~/.virtualenvs {{ cookiecutter.project_slug }}
-    $ ln -s ~/.virtualenvs {{ cookiecutter.project_slug }}/bin/activate .venv
-    $ source .venv
-```
+You will note the distinct lack of opinion on how you should manage your virtual environment. This is by design.
 
 
 **3. Install dependencies**
