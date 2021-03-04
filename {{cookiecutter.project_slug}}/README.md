@@ -66,7 +66,7 @@ First clone the repository from Github and switch to the new directory:
 
 **2. Set up virtual environment**
 
-Next, set up your virtual environment with python3. For example, powering_careers.
+Next, set up your virtual environment with python3. For example, ``{{ cookiecutter.project_slug }}``.
 
 You will note the distinct lack of opinion on how you should manage your virtual environment. This is by design.
 
@@ -188,30 +188,45 @@ After initial setup the development server should be run using ``make run-dev`` 
 
 {{ cookiecutter.project_slug }} uses invoke for interactions with the deployed environments.  
 
+From time to time it may become necessary to sync your local media tree with either production or staging. In order to do so,
+you will need be setup to communicate with the kubernetes cluster. See [Caktus AWS Account Management](https://github.com/caktus/caktus-hosting-services/blob/main/docs/aws-assumerole.md)
+for detailed instructions on authentication.
+
+NOTE: That page will also have the ROLE_ARN you need to switch contexts below.
+
+Once you have access you can run the following command:
+
+```shell
+    (learningpower)$ inv aws.configure-eks-kubeconfig
+```
+
+If you have done this in the past and you just need to switch to the correct cluster, run:
+
+```shell
+    (learningpower)$ kubectl config use-context <ROLE_ARN>
+```
+
 **Media Reset**
 
-
-From time to time it may become necessary to sync your local media tree with either production or staging.
-
-The basic command for resetting your local media is this:
+The command for resetting your local media (assuming your local media is found at ``.\media``) is:
 
 
 ```sh
-    ({{ cookiecutter.project_slug }})$ inv staging reset-local-media
+    ({{ cookiecutter.project_slug }})$ inv staging reset-local-media --sync-to="local" --bucket-path="media"
 ```
 
 If you wish to make sure you need to reset you can issue the command with a ``dry-run`` argument.
 
 
 ```sh
-    ({{ cookiecutter.project_slug }})$ inv staging reset-local-media --dry-run
+    ({{ cookiecutter.project_slug }})$ inv staging reset-local-media --sync-to="local" --bucket-path="media" --dry-run
 ```
 
-If you wish to clean out your local media tree before reset you can issue the command with a ``clean-local`` argument.
+If you wish to clean out your local media tree before reset you can issue the command with a ``--delete`` argument.
 
 
 ```sh
-    ({{ cookiecutter.project_slug }})$ inv staging reset-local-media --clean-local
+    ({{ cookiecutter.project_slug }})$ inv staging reset-local-media --sync-to="local" --bucket-path="media" --delete
 ```
 
 
@@ -223,13 +238,13 @@ The basic command for resetting your local database is this:
 
 
 ```sh
-    ({{ cookiecutter.project_slug }})$ inv staging reset-local-db
+    ({{ cookiecutter.project_slug }})$ inv staging reset-local-db --db-var="DATABASE_URL"
 ```
 
-If you have already retrieved a database file, for example from a backup server, you can restore that dump using the
-``dump-file`` argument.
+This will pull down a current snapshot of the database into ``./learningpower_database.dump``
 
+Then restore your local database with the file:
 
 ```sh
-    ({{ cookiecutter.project_slug }})$ inv reset-local-db --dump-file="<PATH_TO_BACKUPFILE>"
+    ({{ cookiecutter.project_slug }})$ pg_restore --no-owner --clean --if-exists --dbname learningpower < learningpower_database.dump
 ```
