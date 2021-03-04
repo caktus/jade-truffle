@@ -33,7 +33,7 @@ INSTALLED_APPS = [
     "taggit",
     {% if cookiecutter.css_style == "sass" -%}
     "sass_processor",
-    {% endif %}
+    {%- endif %}
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -65,15 +65,15 @@ INSTALLED_APPS += [
 ]
 {% endif %}
 
-
 MIDDLEWARE = [
+    "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    "django.middleware.security.SecurityMiddleware",
     {% if cookiecutter.project_type == 'wagtail' -%}
     "wagtail.contrib.redirects.middleware.RedirectMiddleware",
     {%- endif %}
@@ -85,7 +85,9 @@ AUTH_USER_MODEL = "users.User"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [os.path.join(PROJECT_DIR, "templates"),],
+        "DIRS": [
+            os.path.join(PROJECT_DIR, "templates"),
+        ],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -122,7 +124,8 @@ if os.getenv("DATABASE_URL"):
     import dj_database_url
 
     db_from_env = dj_database_url.config(
-        conn_max_age=500, ssl_require=os.getenv("DATABASE_SSL", False),
+        conn_max_age=500,
+        ssl_require=os.getenv("DATABASE_SSL", False),
     )
     DATABASES["default"].update(db_from_env)
 
@@ -131,10 +134,18 @@ if os.getenv("DATABASE_URL"):
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
-    {"NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",},
-    {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",},
-    {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",},
-    {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",},
+    {
+        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
+    },
+    {
+        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
+    },
+    {
+        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
+    },
+    {
+        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
+    },
 ]
 
 
@@ -169,6 +180,7 @@ STATICFILES_DIRS = [
 
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
 STATIC_URL = "/static/"
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 MEDIA_URL = "/media/"
@@ -178,7 +190,9 @@ MEDIA_S3_CUSTOM_DOMAIN = os.getenv("MEDIA_S3_CUSTOM_DOMAIN", "")
 DEFAULT_FILE_STORAGE = os.getenv(
     "DEFAULT_FILE_STORAGE", "django.core.files.storage.FileSystemStorage"
 )
-AWS_DEFAULT_ACL = os.getenv("AWS_DEFAULT_ACL")
+# Only set this if you need to override the default bucket permissions
+# See: https://github.com/caktus/jade-truffle/issues/17
+AWS_DEFAULT_ACL = os.getenv("AWS_DEFAULT_ACL") or None
 AWS_S3_SIGNATURE_VERSION = os.getenv("AWS_S3_SIGNATURE_VERSION", "s3v4")
 AWS_S3_REGION_NAME = os.getenv("AWS_S3_REGION_NAME", "us-east-1")
 # See https://github.com/wagtail/wagtail/pull/4495#issuecomment-387434521
@@ -195,21 +209,42 @@ LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,
     "filters": {"require_debug_false": {"()": "django.utils.log.RequireDebugFalse"}},
-    "formatters": {"basic": {"format": "%(asctime)s %(name)-20s %(levelname)-8s %(message)s",},},
+    "formatters": {
+        "basic": {"format": "%(asctime)s %(name)-20s %(levelname)-8s %(message)s"}
+    },
     "handlers": {
         "mail_admins": {
             "level": "ERROR",
             "filters": ["require_debug_false"],
             "class": "django.utils.log.AdminEmailHandler",
         },
-        "console": {"level": "DEBUG", "class": "logging.StreamHandler", "formatter": "basic",},
+        "console": {
+            "level": "DEBUG",
+            "class": "logging.StreamHandler",
+            "formatter": "basic",
+        },
     },
     "loggers": {
-        "django.request": {"handlers": ["mail_admins"], "level": "ERROR", "propagate": True,},
-        "django.security": {"handlers": ["mail_admins"], "level": "ERROR", "propagate": True,},
-        "apps": {"level": "DEBUG", "handlers": ["console"], "propagate": False,},
+        "django.request": {
+            "handlers": ["mail_admins"],
+            "level": "ERROR",
+            "propagate": True,
+        },
+        "django.security": {
+            "handlers": ["mail_admins"],
+            "level": "ERROR",
+            "propagate": True,
+        },
+        "apps": {
+            "level": "DEBUG",
+            "handlers": ["console"],
+            "propagate": False,
+        },
     },
-    "root": {"handlers": ["console",], "level": "INFO",},
+    "root": {
+        "handlers": ["console"],
+        "level": "INFO",
+    },
 }
 
 {% if cookiecutter.css_style == "sass" -%}
@@ -225,7 +260,10 @@ SASS_PRECISION = 8
 WAGTAIL_SITE_NAME = "{{ cookiecutter.project_slug }}"
 
 WAGTAILSEARCH_BACKENDS = {
-    "default": {"BACKEND": "wagtail.contrib.postgres_search.backend", "SEARCH_CONFIG": "english"},
+    "default": {
+        "BACKEND": "wagtail.contrib.postgres_search.backend",
+        "SEARCH_CONFIG": "english",
+    },
 }
 {% endif %}
 
@@ -251,7 +289,15 @@ PHONENUMBER_DEFAULT_FORMAT = "NATIONAL"
 PHONENUMBER_DEFAULT_REGION = "US"
 
 SEARCH_PAGE_SIZE = 10
-ADMINS = os.getenv("ADMINS", [("caktus-{{ cookiecutter.project_slug }}-team", "{{ cookiecutter.project_slug }}-team@caktusgroup.com",)])
+ADMINS = os.getenv(
+    "ADMINS",
+    [
+        (
+            "caktus-{{ cookiecutter.project_slug }}-team",
+            "{{ cookiecutter.project_slug }}-team@caktusgroup.com",
+        )
+    ],
+)
 
 GENERAL_INQUIRY_EMAIL_RECIPIENTS = [e[1] for e in ADMINS]
 EVENT_SIGNUP_FORM_SUBMISSION_RECIPIENTS = GENERAL_INQUIRY_EMAIL_RECIPIENTS

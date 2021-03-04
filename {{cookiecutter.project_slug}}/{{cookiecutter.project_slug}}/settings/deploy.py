@@ -3,7 +3,7 @@ import os
 from {{ cookiecutter.project_slug }}.settings.base import *  # noqa: F403
 
 
-# This is NOT a complete production settings file. For more, see:
+# For more information about deploy settings, see:
 # See https://docs.djangoproject.com/en/dev/howto/deployment/checklist/
 
 #### Critical settings
@@ -13,22 +13,6 @@ SECRET_KEY = os.environ["DJANGO_SECRET_KEY"]
 ### Environment-specific settings
 
 ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "localhost").split(":")
-
-# Disable Django's own staticfiles handling in favour of WhiteNoise, for
-# greater consistency between gunicorn and `./manage.py runserver`. See:
-# http://whitenoise.evans.io/en/stable/django.html#using-whitenoise-in-development
-INSTALLED_APPS.remove("django.contrib.staticfiles")
-INSTALLED_APPS.extend(
-    ["whitenoise.runserver_nostatic", "django.contrib.staticfiles",]
-)
- 
-MIDDLEWARE.remove("django.middleware.security.SecurityMiddleware")
-MIDDLEWARE = [
-    "django.middleware.security.SecurityMiddleware",
-    "whitenoise.middleware.WhiteNoiseMiddleware",
-] + MIDDLEWARE
-
-STATICFILES_STORAGE = "django.contrib.staticfiles.storage.ManifestStaticFilesStorage"
 
 EMAIL_HOST = os.getenv("EMAIL_HOST", "localhost")
 EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER", "")
@@ -78,7 +62,9 @@ for backend in TEMPLATES:
                 # We're already caching our templates
                 break
         else:
-            backend["OPTIONS"]["loaders"] = [("django.template.loaders.cached.Loader", loaders)]
+            backend["OPTIONS"]["loaders"] = [
+                ("django.template.loaders.cached.Loader", loaders)
+            ]
 
 ### ADMINS and MANAGERS
 ADMINS = (("{{ cookiecutter.project_name }} Dev Team", "{{cookiecutter.project_slug}}-team@caktusgroup.com"),)
@@ -91,7 +77,9 @@ if SENTRY_DSN:
     from sentry_sdk.integrations.django import DjangoIntegration
 
     sentry_sdk.init(
-        dsn=SENTRY_DSN, integrations=[DjangoIntegration()], environment=ENVIRONMENT,
+        dsn=SENTRY_DSN,
+        integrations=[DjangoIntegration()],
+        environment=ENVIRONMENT,
     )
 
 

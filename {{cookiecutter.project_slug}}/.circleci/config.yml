@@ -16,15 +16,15 @@ commands:
     steps:
       - restore_cache:
           keys:
-              - v6-pip-dependencies-{{ checksum "requirements/dev/dev.txt" }}
+              - v1-pip-dependencies-{{ checksum "requirements/dev/dev.txt" }}
               # fallback to using the latest cache if no exact match is found
-              - v6-pip-dependencies-
+              - v1-pip-dependencies-
   save_cache_cmd:
     steps:
       - save_cache:
           paths:
             - "env"
-          key: v6-pip-dependencies-{{ checksum "requirements/dev/dev.txt" }}
+          key: v1-pip-dependencies-{{ checksum "requirements/dev/dev.txt" }}
 {% endraw %}
 orbs:
   docker: circleci/docker@1.0.1
@@ -60,7 +60,7 @@ jobs:
           name: Login
           command: |
             . env/bin/activate
-            inv aws.docker-login  
+            inv aws.docker-login
       - setup_remote_docker
       - run:
           name: Build Image
@@ -71,7 +71,7 @@ jobs:
             inv "<< parameters.environment >>" project.build-deploy
       - slack/status:
           success_message: ":rocket: Deployed ${CIRCLE_BRANCH} branch. <${CIRCLE_BUILD_URL}|Deploy Status> :success:"
-          failure_message: ":sadpanda: Failed to deploy ${CIRCLE_BRANCH} branch. <${CIRCLE_BUILD_URL}|Deploy Status> :red-circle:"
+          failure_message: ":sadpanda: Failed to deploy ${CIRCLE_BRANCH} branch. <${CIRCLE_BUILD_URL}|Deploy Status> :red_circle:"
           include_project_field: false
           include_job_number_field: false
           include_visit_job_action: false
@@ -97,7 +97,7 @@ jobs:
       - save_cache_cmd
       - run:
         # This step is necessary to do the merge check in the
-        # when condition below. Without it the local git cannot 
+        # when condition below. Without it the local git cannot
         # access the repo to complete the merge.
           name: Fetch branches
           command: |
@@ -111,15 +111,15 @@ jobs:
 
             inv project.ci-build
       - when:
-        # If this test is not being run on master or develop, then we should
+        # If this test is not being run on main or develop, then we should
         # check to see if this branch will trigger a merge migration, and check
         # pre-commit
           condition:
             and:
-              - not: 
+              - not:
                   equal: [ develop, << pipeline.git.branch >> ]
-              - not: 
-                  equal: [ master, << pipeline.git.branch >> ]
+              - not:
+                  equal: [ main, << pipeline.git.branch >> ]
           steps:
             - run:
                 name: Check migrations
@@ -130,14 +130,14 @@ jobs:
             - run:
                 name: Run pre-commit
                 command: |
-                  . env/bin/activate  
+                  . env/bin/activate
 
                   inv project.ci-run --command='pre-commit run --all'
       - run:
           name: Run tests
           command: |
             . env/bin/activate
-            
+
             inv project.ci-run --command='pytest'
       - slack/status:
           success_message: ":caktus: ${CIRCLE_BRANCH} tests passed. <${CIRCLE_BUILD_URL}|Build> :successful:"
@@ -165,4 +165,4 @@ workflows:
           filters:
             branches:
               only:
-                - master
+                - main

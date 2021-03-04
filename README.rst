@@ -1,13 +1,13 @@
 Caktus Jade Truffle Django Project
 ==================================
 
-Jade Truffle is the Mandarin traslation of the cacti species *blossfeldia liliputana*. The smallest of all cacti. 
+Jade Truffle is the Mandarin traslation of the cacti species *blossfeldia liliputana*. The smallest of all cacti.
 
 Jade Truffle is a `cookiecutter`_ template designed to generate a greenfield Django 3.0
 or Wagtail project.
 
-Jad Truffle is a work in progress. The intention is to make the base project quickly deployable, while
-at the same time allowing for project specific overrides.  
+Jade Truffle is a work in progress. The intention is to make the base project quickly deployable, while
+at the same time allowing for project specific overrides.
 
 Currently the template is highly tuned to an AWS/EKS deployment methodology using `Django K8s`_, `AWS Web Stacks`_,
 and `K8s Web Cluster`_. The hope is that future work will add to the deployment methods.
@@ -28,13 +28,13 @@ of these intructions we'll call the environment ``jade-truffle``.
 
 Enable your environment and install cookiecutter::
 
-    $(jade-truflle) pip install cookiecutter
+    (jade-truffle)$ pip install cookiecutter
 
 Now you have an environment that can install cookiecutter templates.
 
-Next use cookiecutter to build a project using ``jade-truflle``::
+Next use cookiecutter to build a project using ``jade-truffle``::
 
-    $(jade-truffle) cookiecutter https://github.com/caktus/jade-truffle
+    (jade-truffle)$ cookiecutter https://github.com/caktus/jade-truffle
 
 
 Options
@@ -50,11 +50,18 @@ The cookiecutter will run through a series of configuration options
             * ``apple_pie/apple_pie/settings``
             * ``apple_pie/apple_pie/urls.py``
 3. Project Type: ``django`` or ``wagtail``
-4. Postgres Port: Defaults to [5432]
-    * This is used for local dev so you can set this to any port you like
-5. Primary App: Will be used as the main app in the projects apps directory.
+
+4. Testing Type: ``django`` or ``pytest``
+
+5. CSS Style: ``sass`` or ``roll-my-own``
+
+6. Postgres Port: Defaults to [5432]
+    * This is used for local dev so you can set this to any port you like.
+    * NOTE: If you have a postgres server running locally on port 5432, you will want to
+      choose a different port than 5432.
+7. Primary App: Will be used as the main app in the projects apps directory.
     * For example: ``apple_pie/apps/apple_pie``
-6. Project Domain Name:
+8. Project Domain Name:
     * Defaults to ``caktus-built.com``
 
 The generated project has a README that details the steps for install.

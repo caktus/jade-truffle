@@ -46,7 +46,6 @@ env_django_settings: "{{ app_name}}.settings.deploy"
 env_cache_host: memcached:11211
 env_default_file_storage: "{{ app_name }}.storages.MediaBoto3Storage"
 env_media_storage_bucket_name: "{{ app_name }}-{{ env_name }}-assets"
-env_aws_default_acl: public-read
 env_media_location: media/
 # New Relic APM: Caktus Free Account
 env_new_relic_app_name: "{{ k8s_namespace }}"
