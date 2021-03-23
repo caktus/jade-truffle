@@ -214,7 +214,7 @@ Once you have access you can run the following command:
     (learningpower)$ inv aws.configure-eks-kubeconfig
 ```
 
-If you have done this in the past and you just need to switch to the correct cluster, run:
+If you have done this in the past, you just need to switch to the correct cluster, run:
 
 ```shell
     (learningpower)$ kubectl config use-context <ROLE_ARN>
@@ -226,21 +226,21 @@ The command for resetting your local media (assuming your local media is found a
 
 
 ```sh
-    ({{ cookiecutter.project_slug }})$ inv staging reset-local-media --sync-to="local" --bucket-path="media"
+    ({{ cookiecutter.project_slug }})$ inv staging {{cookiecutter.cloud_provider}}.sync-media --sync-to="local" --bucket-path="media"
 ```
 
 If you wish to make sure you need to reset you can issue the command with a ``dry-run`` argument.
 
 
 ```sh
-    ({{ cookiecutter.project_slug }})$ inv staging reset-local-media --sync-to="local" --bucket-path="media" --dry-run
+    ({{ cookiecutter.project_slug }})$ inv staging {{cookiecutter.cloud_provider}}.sync-media --sync-to="local" --bucket-path="media" --dry-run
 ```
 
 If you wish to clean out your local media tree before reset you can issue the command with a ``--delete`` argument.
 
 
 ```sh
-    ({{ cookiecutter.project_slug }})$ inv staging reset-local-media --sync-to="local" --bucket-path="media" --delete
+    ({{ cookiecutter.project_slug }})$ inv staging {{cookiecutter.cloud_provider}}.sync-media --sync-to="local" --bucket-path="media" --delete
 ```
 
 
@@ -249,13 +249,13 @@ If you wish to clean out your local media tree before reset you can issue the co
 To reset your local database from a deployed environment:
 
 ```sh
-    ({{ cookiecutter.project_slug }})$ inv staging reset-local-db --db-var="DATABASE_URL"
+    ({{ cookiecutter.project_slug }})$ inv staging pod.get-db-dump --db-var="DATABASE_URL"
 ```
 
-This will pull down a current snapshot of the database into ``./learningpower_database.dump``
+This will pull down a current snapshot of the database into ``./{{ cookiecutter.project_slug }}_database.dump``
 
 Then restore your local database with the file:
 
 ```sh
-    ({{ cookiecutter.project_slug }})$ pg_restore --no-owner --clean --if-exists --dbname learningpower < learningpower_database.dump
+    ({{ cookiecutter.project_slug }})$ pg_restore --no-owner --clean --if-exists --dbname {{ cookiecutter.project_slug }} < {{ cookiecutter.project_slug }}_database.dump
 ```

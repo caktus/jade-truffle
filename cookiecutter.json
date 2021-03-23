@@ -4,6 +4,7 @@
   "project_type": ["django", "wagtail"],
   "testing_type": ["django", "pytest"],
   "css_style": ["sass", "roll-my-own"],
+  "cloud_provider": ["aws", "gcp"],
   "postgres_port": "5432",
   "primary_app": "{{ cookiecutter.project_slug }}",
   "project_domain_name": "caktus-built.com"
