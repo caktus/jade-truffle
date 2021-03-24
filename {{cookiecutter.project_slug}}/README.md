@@ -211,13 +211,13 @@ NOTE: That page will also have the ROLE_ARN you need to switch contexts below.
 Once you have access you can run the following command:
 
 ```shell
-    (learningpower)$ inv aws.configure-eks-kubeconfig
+    ({{ cookiecutter.project_slug }})$ inv aws.configure-eks-kubeconfig
 ```
 
 If you have done this in the past, you just need to switch to the correct cluster, run:
 
 ```shell
-    (learningpower)$ kubectl config use-context <ROLE_ARN>
+    ({{ cookiecutter.project_slug }})$ kubectl config use-context <ROLE_ARN>
 ```
 
 **Media Reset**

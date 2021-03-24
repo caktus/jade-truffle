@@ -20,13 +20,13 @@ If you get a list, you have access.
 The following will pull the latest backup for the project
 
 ```shell
-    (learingpower)$ inv utils.get-db-backup
+    ({{ cookiecutter.project_slug }})$ inv utils.get-db-backup
 ```
 
 This will pull the most recent monthly backup.
 
 ```shell
-    (leariningpower)$ inv utils.get-db-backup --latest=monthly
+    ({{ cookiecutter.project_slug }})$ inv utils.get-db-backup --latest=monthly
 ```
 
 You should now have a file similar to ``daily-{{ cookiecutter.project_slug }}-202103030000.pgdump`` in your project root.
