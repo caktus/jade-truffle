@@ -9,11 +9,8 @@ To begin you should have the following applications installed on your local deve
 - npm == 6.14.x (comes with node 12)
 - [nvm](https://github.com/nvm-sh/nvm/blob/master/README.md) is not strictly _required_, but will almost certainly be necessary unless you just happen to have Node.js 12.x installed on your machine.
 - [pip](http://www.pip-installer.org/) >= 20
-- [virtualenv](http://www.virtualenv.org/) >= 1.10
-- [virtualenvwrapper](http://pypi.python.org/pypi/virtualenvwrapper) >= 3.0
 - Postgres >= 12
 - git >= 2.26
-- [aws-cli](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html)
 
 {% if cookiecutter.css_style == "sass" %}
 ### 🤷‍♂️ **Making changes to templates or stylesheets?**
@@ -69,20 +66,9 @@ First clone the repository from Github and switch to the new directory:
 
 **2. Set up virtual environment**
 
-Next, set up your virtual environment:
+Next, set up your virtual environment with python3. For example, ``{{ cookiecutter.project_slug }}``.
 
-```linux
-    # Check that you have python3 installed
-    $ which python3
-
-    # Create the virtual environment, either with mkvirtualenv:
-    $ mkvirtualenv {{ cookiecutter.project_slug }} -p `which python3`
-
-    # or directly (if your system is set up differently than mkvirtualenv assumes):
-    $ python3 -m virtualenv ~/.virtualenvs {{ cookiecutter.project_slug }}
-    $ ln -s ~/.virtualenvs {{ cookiecutter.project_slug }}/bin/activate .venv
-    $ source .venv
-```
+You will note the distinct lack of opinion on how you should manage your virtual environment. This is by design.
 
 
 **3. Install dependencies**
@@ -216,29 +202,45 @@ The Django admin is at `/admin` and the Wagtail admin is at `/cms`.
 
 {{ cookiecutter.project_slug }} uses invoke for interactions with the deployed environments.
 
+From time to time it may become necessary to sync your local media tree with either production or staging. In order to do so,
+you will need be setup to communicate with the kubernetes cluster. See [Caktus AWS Account Management](https://github.com/caktus/caktus-hosting-services/blob/main/docs/aws-assumerole.md)
+for detailed instructions on authentication.
+
+NOTE: That page will also have the ROLE_ARN you need to switch contexts below.
+
+Once you have access you can run the following command:
+
+```shell
+    ({{ cookiecutter.project_slug }})$ inv aws.configure-eks-kubeconfig
+```
+
+If you have done this in the past, you just need to switch to the correct cluster, run:
+
+```shell
+    ({{ cookiecutter.project_slug }})$ kubectl config use-context <ROLE_ARN>
+```
+
 **Media Reset**
 
-
-From time to time it may become necessary to sync your local media tree with either production or staging.
-
-The basic command for resetting your local media is this:
+The command for resetting your local media (assuming your local media is found at ``.\media``) is:
 
 
 ```sh
-    ({{ cookiecutter.project_slug }})$ inv staging aws.sync-media  --sync-to="local"
+    ({{ cookiecutter.project_slug }})$ inv staging {{cookiecutter.cloud_provider}}.sync-media --sync-to="local" --bucket-path="media"
 ```
 
 If you wish to make sure you need to reset you can issue the command with a ``dry-run`` argument.
 
 
 ```sh
-    ({{ cookiecutter.project_slug }})$ inv staging aws.sync-media  --sync-to="local"
+    ({{ cookiecutter.project_slug }})$ inv staging {{cookiecutter.cloud_provider}}.sync-media --sync-to="local" --bucket-path="media" --dry-run
 ```
 
-If you wish to clean out your local media tree before reset you can issue the command with a ``delete`` argument.
+If you wish to clean out your local media tree before reset you can issue the command with a ``--delete`` argument.
+
 
 ```sh
-    ({{ cookiecutter.project_slug }})$ inv staging aws.sync-media  --sync-to="local" --delete
+    ({{ cookiecutter.project_slug }})$ inv staging {{cookiecutter.cloud_provider}}.sync-media --sync-to="local" --bucket-path="media" --delete
 ```
 
 
@@ -247,13 +249,13 @@ If you wish to clean out your local media tree before reset you can issue the co
 To reset your local database from a deployed environment:
 
 ```sh
-    ({{ cookiecutter.project_slug }})$ inv staging project.reset-local-db
+    ({{ cookiecutter.project_slug }})$ inv staging pod.get-db-dump --db-var="DATABASE_URL"
 ```
 
-If you have already retrieved a database file, for example from a backup server, you can restore that dump using the
-``dump-file`` argument.
+This will pull down a current snapshot of the database into ``./{{ cookiecutter.project_slug }}_database.dump``
 
+Then restore your local database with the file:
 
 ```sh
-    ({{ cookiecutter.project_slug }})$ inv project.reset-local-db --dump-file="<PATH_TO_BACKUPFILE>"
+    ({{ cookiecutter.project_slug }})$ pg_restore --no-owner --clean --if-exists --dbname {{ cookiecutter.project_slug }} < {{ cookiecutter.project_slug }}_database.dump
 ```

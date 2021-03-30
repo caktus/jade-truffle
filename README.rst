@@ -44,6 +44,7 @@ The cookiecutter will run through a series of configuration options
 
 1. Project Name
     * This can be anything you like (e.g. Apple Pie)
+
 2. Projet Slug:
     * Generated from the Project Name, but can be overriden.
     * Used in most configuration options in the generated project.
@@ -55,13 +56,15 @@ The cookiecutter will run through a series of configuration options
 
 5. CSS Style: ``sass`` or ``roll-my-own``
 
-6. Postgres Port: Defaults to [5432]
+6. Cloud Provider: ``aws`` or ``gcp``
+
+7. Postgres Port: Defaults to [5432]
     * This is used for local dev so you can set this to any port you like.
     * NOTE: If you have a postgres server running locally on port 5432, you will want to
       choose a different port than 5432.
-7. Primary App: Will be used as the main app in the projects apps directory.
+8. Primary App: Will be used as the main app in the projects apps directory.
     * For example: ``apple_pie/apps/apple_pie``
-8. Project Domain Name:
+9. Project Domain Name:
     * Defaults to ``caktus-built.com``
 
 The generated project has a README that details the steps for install.
