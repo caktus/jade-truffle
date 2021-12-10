@@ -28,18 +28,9 @@ jobs:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
         with:
-          python-version: "{{cookiecutter.python_version}}"
-      #----------------------------------------------
-      #  -----  Checkout Submodule  -----
-      #----------------------------------------------
-      - name: Checkout Submodule
-        env:
-          SUBMODULE_SSH_SECRET: ${{secrets.SUBMODULE_SSH_SECRET}}
-        run: |
-          eval `ssh-agent -s`
-          ssh-add - <<< "${SUBMODULE_SSH_SECRET}"
-          git submodule init
-          git submodule update
+{%- endraw %}
+          python-version: {{cookiecutter.python_version}}
+{% raw %}
       #----------------------------------------------
       #       load cached venv if cache exists
       #----------------------------------------------
@@ -69,7 +60,7 @@ jobs:
           make run-tests
   {% endraw %}
         env:
-          DJANGO_SETTINGS_MODULE: "{{cookiecutter.project_slug}}".settings.dev
+          DJANGO_SETTINGS_MODULE: {{cookiecutter.project_slug}}.settings.dev
           DATABASE_URL: postgres://postgres:postgres@127.0.0.1:5432/postgres
   {% raw %}
       - name: Job Notification

@@ -12,5 +12,5 @@ jobs:
           fetch-depth: 0
       - uses: actions/setup-python@v2
         with:
-          python-version: "{{cookiecutter.python_version}}"
+          python-version: {{ cookiecutter.python_version }}
       - uses: pre-commit/action@v2.0.3
