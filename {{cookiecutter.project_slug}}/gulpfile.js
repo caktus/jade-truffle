@@ -42,8 +42,7 @@ gulp.task('watch-css', function(done) {
 
 {% else %}
 gulp.task('styles', function() {
-  const sass = require('gulp-sass');
-
+  const sass = require('gulp-sass')(require('sass'));
   return gulp
     .src("./apps/{{cookiecutter.project_slug}}/assets/styles/sass/app.scss")
     .pipe(sass().on('error', sass.logError))
