@@ -78,7 +78,7 @@ def main():
     print("Running post generation tasks.")
     clean_project()
     setup_local_py()
-    # setup_node()
+    setup_node()
     setup_python()
 
 
