@@ -12,6 +12,11 @@ def clean_project():
         Path("./tailwind.config.js").unlink()
         Path("./postcss.config.js").unlink()
 
+    if "{{cookiecutter.ci_cd}}" == "actions":
+        shutil.rmtree(Path("./.circleci"))
+    else:
+        shutil.rmtree(Path("./.github"))
+
 
 def setup_node():
     print("Setting up Node")
