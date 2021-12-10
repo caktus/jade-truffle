@@ -1,0 +1,61 @@
+const gulp = require("gulp");
+const rename = require("gulp-rename");
+const webpack = require("webpack-stream");
+
+gulp.task('javascript', function() {
+  return gulp
+    .src("./{{cookiecutter.project_slug}}/assets/webpack_entry.js")
+    .pipe(webpack(require("./webpack.config.js")))
+    .pipe(rename("main.js"))
+    .pipe(gulp.dest("./{{cookiecutter.project_slug}}/static/js/"));
+});
+
+gulp.task('watch-js', function(done) {
+  gulp.watch(["./apps/{{cookiecutter.project_slug}}/assets/js/**/*.js"], gulp.series("javascript"));
+  done();
+})
+
+{% if cookiecutter.css_style == "tailwind" %}
+
+gulp.task('styles', function() {
+  const postcss = require("gulp-postcss");
+  const tailwindcss = require("tailwindcss");
+
+  return gulp
+    .src("./apps/{{cookiecutter.project_slug}}/assets/styles/tailwind/main.css")
+    .pipe(
+      postcss([
+        require("postcss-import"),
+        require("postcss-preset-env"),
+        tailwindcss("./tailwind.config.js"),
+        require("autoprefixer"),
+      ])
+    )
+    .pipe(rename("main.css"))
+    .pipe(gulp.dest("./{{cookiecutter.project_slug}}/static/css/"));
+});
+
+gulp.task('watch-css', function(done) {
+  gulp.watch(['./apps/{{cookiecutter.project_slug}}/**/*.css', './tailwind.config.js'], gulp.series('styles'))
+  done();
+});
+
+{% else %}
+gulp.task('styles', function() {
+  const sass = require('gulp-sass');
+
+  return gulp
+    .src("./apps/{{cookiecutter.project_slug}}/assets/styles/sass/app.scss")
+    .pipe(sass().on('error', sass.logError))
+    .pipe(rename("main.css"))
+    .pipe(gulp.dest("./{{cookiecutter.project_slug}}/static/css/"));
+});
+
+gulp.task('watch-css', function(done) {
+  gulp.watch(['./apps/{{cookiecutter.project_slug}}/assets/styles/sass/**/*.scss'], gulp.series('styles'))
+  done();
+});
+{% endif %}
+
+
+exports.default = gulp.series('styles', 'javascript', 'watch-css', 'watch-js');

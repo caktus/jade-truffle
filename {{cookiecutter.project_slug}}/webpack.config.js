@@ -4,12 +4,12 @@ const path = require('path');
 module.exports = {
     bail: true,
     context: __dirname,
-    entry: ['./{{cookiecutter.project_slug}}/static/js/webpack_entry.js'],
+    entry: ['./{{cookiecutter.project_slug}}/assets/js/webpack_entry.js'],
     resolve: {
         extensions: ['*', '.js'],
     },
     output: {
-        path: path.resolve('./{{cookiecutter.project_slug}}/static/js/bundles/'),
+        path: path.resolve('./{{cookiecutter.project_slug}}/static/js'),
         filename: 'main.js',
     },
     module: {

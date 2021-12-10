@@ -11,6 +11,9 @@ def clean_project():
     if "{{cookiecutter.css_style}}" == "sass":
         Path("./tailwind.config.js").unlink()
         Path("./postcss.config.js").unlink()
+        shutil.rmtree(Path("./apps/{{cookiecutter.project_slug}}/assets/styles/tailwind"))
+    else:
+        shutil.rmtree(Path("./apps/{{cookiecutter.project_slug}}/assets/styles/sass"))
 
     if "{{cookiecutter.ci_cd}}" == "actions":
         shutil.rmtree(Path("./.circleci"))
