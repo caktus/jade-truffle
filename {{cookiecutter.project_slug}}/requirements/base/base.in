@@ -1,25 +1,15 @@
 # base.in
 
-django
-django-dotenv
-django_extensions
-django_model_utils
-django-webpack-loader
+# Core
+Django
 dj-database-url
-django-webpack-loader
-django-model-utils
-django-storages
-django-compressor
-django-taggit
-{% if cookiecutter.css_style == "sass" %}
-django-sass-processor
-{% endif %}
-django-phonenumber-field
-django-honeypot
 whitenoise
+django-extensions
+django-model-utils
+psycopg2-binary
+charset-normalizer
+django-storages
 boto3
-libsass
-phonenumberslite
 
 # Postgres
 psycopg2-binary
