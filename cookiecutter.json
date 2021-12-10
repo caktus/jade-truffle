@@ -5,6 +5,7 @@
   "project_type": ["wagtail", "django"],
   "testing_type": ["pytest", "django"],
   "css_style": ["sass", "tailwind"],
+  "ci_cd": ["actions", "circleci"],
   "cloud_provider": ["aws", "gcp"],
   "postgres_port": "5432",
   "primary_app": "{{ cookiecutter.project_slug }}",
