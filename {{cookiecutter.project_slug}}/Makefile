@@ -17,6 +17,9 @@ install_requirements:
 	@echo 'Installing requirements...'
 	pip-sync requirements/base/base.txt requirements/dev/dev.txt
 
+setup_git:
+
+
 setup:
 	@echo 'Setting up the environment...'
 	make install_requirements

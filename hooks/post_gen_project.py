@@ -68,10 +68,17 @@ def setup_python():
     subprocess.run(['make', 'update_requirements'])
 
 
+def setup_local_py():
+    print("Setting up local.py")
+    Path("./{{cookiecutter.project_slug}}/settings/local.example.py")\
+        .rename("./{{cookiecutter.project_slug}}/settings/local.py")
+
+
 def main():
     print("Running post generation tasks.")
     clean_project()
-    setup_node()
+    setup_local_py()
+    # setup_node()
     setup_python()
 
 

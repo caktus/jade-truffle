@@ -31,16 +31,12 @@ INSTALLED_APPS = [
     "apps.search",
     "apps.users",
     "taggit",
-    {% if cookiecutter.css_style == "sass" -%}
-    "sass_processor",
-    {%- endif %}
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "webpack_loader",
 ]
 
 {% if cookiecutter.project_type == 'wagtail' %}
@@ -169,9 +165,6 @@ USE_TZ = True
 STATICFILES_FINDERS = [
     "django.contrib.staticfiles.finders.FileSystemFinder",
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
-    {% if cookiecutter.css_style == "sass" -%}
-    "sass_processor.finders.CssFinder",
-    {%- endif %}
 ]
 
 STATICFILES_DIRS = [
@@ -181,6 +174,7 @@ STATICFILES_DIRS = [
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
 STATIC_URL = "/static/"
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+WHITENOISE_MANIFEST_STRICT = False
 
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 MEDIA_URL = "/media/"
