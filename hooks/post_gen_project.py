@@ -11,7 +11,7 @@ def clean_project():
     if "{{cookiecutter.css_style}}" == "sass":
         Path("./tailwind.config.js").unlink()
         Path("./postcss.config.js").unlink()
-        Path("./{{cookiecutter.project_slug}}/assets/styles/tailwind_main.css").unlink()
+        Path("./{{cookiecutter.project_slug}}/assets/styles/tailwind_entry.css").unlink()
         shutil.rmtree(Path("./apps/{{cookiecutter.project_slug}}/assets/styles/tailwind"))
     else:
         Path("./{{cookiecutter.project_slug}}/assets/styles/sass_entry.scss").unlink()
@@ -50,6 +50,7 @@ def setup_node():
         "tailwindcss",
         "@tailwindcss/typography",
         "postcss",
+        "cssnano",
         "gulp-postcss",
         "postcss-cli",
         "postcss-import",
