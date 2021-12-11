@@ -7,3 +7,4 @@ Dockerfile
 htmlcov
 node_modules
 .pytest_cache
+.direnv

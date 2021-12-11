@@ -6,3 +6,4 @@ newrelic
 openshift
 kubernetes-validate
 uWSGI
+python-memcached

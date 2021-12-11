@@ -32,9 +32,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 INSTALLED_APPS = [
     "apps.common",
     "apps.{{ cookiecutter.primary_app }}",
-    "apps.search",
     "apps.users",
-    "taggit",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -45,6 +43,8 @@ INSTALLED_APPS = [
 
 {% if cookiecutter.project_type == 'wagtail' %}
 INSTALLED_APPS += [
+    "apps.search",
+    "taggit",
     "wagtail.contrib.forms",
     "wagtail.contrib.postgres_search",
     "wagtail.contrib.redirects",

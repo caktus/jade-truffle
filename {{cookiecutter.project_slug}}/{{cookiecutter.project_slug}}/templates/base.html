@@ -1,9 +1,6 @@
-{% if cookiecutter.project_type == "wagtail" -%}
-{% raw %}
-{% load static wagtailuserbar %}
-{% endraw %}
-{%- endif -%}
-{% raw %}
+{% raw -%}
+{% load static %}
+
 <!DOCTYPE html>
 <html class="no-js" lang="en">
 <head>
@@ -45,15 +42,17 @@
 
 <body>
 {% endraw %}
-    <div class="test_div">Hello Red {{cookiecutter.project_name}}</div>
+    <div class="test_div">Hello {{cookiecutter.project_name}}! My color is Red. That means the styles are building correctly.</div>
 {% raw %}
-    {% include 'includes/header.html' %}
 
     {% block content %}{% endblock %}
 
-    {% include 'includes/footer.html' %}
-
     {% block extra_js %}{% endblock %}
 </body>
-</html>
 {% endraw %}
+{% if cookiecutter.project_type == "wagtail" -%}
+{% raw %}
+{% load wagtailuserbar %}
+{% endraw %}
+{% endif %}
+</html>

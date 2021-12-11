@@ -1,10 +1,11 @@
-FROM node:12.16-alpine as static_files
+FROM node:14.17-alpine as static_files
 WORKDIR /code
 ENV PATH /code/node_modules/.bin:$PATH
-COPY package.json package-lock.json webpack.base.config.js webpack.prod.config.js /code/
+COPY package.json package-lock.json webpack.config.js /code/
 RUN npm install --silent
 COPY . /code/
 RUN npm run build
+RUN npm run build:css
 
 FROM python:3.8-slim as base
 
@@ -58,16 +59,13 @@ FROM base AS deploy
 ARG APP_USER=appuser
 RUN groupadd -r ${APP_USER} && useradd --no-log-init -r -g ${APP_USER} ${APP_USER}
 
-COPY --from=static_files /code/webpack-stats-production.json /code/
 # uWSGI will listen on this port
 EXPOSE 8000
 
 # Add any static environment variables needed by Django or your settings file here:
 ENV DJANGO_SETTINGS_MODULE={{ cookiecutter.project_slug }}.settings.deploy
 
-# Call compilecss and collectstatic (customize the following line with the minimal environment variables needed for manage.py to run):
-RUN touch /code/.env
-RUN DATABASE_URL='' ENVIRONMENT='' DJANGO_SECRET_KEY='dummy' DOMAIN='' python manage.py compilescss
+# Call collectstatic (customize the following line with the minimal environment variables needed for manage.py to run):
 RUN DATABASE_URL='' ENVIRONMENT='' DJANGO_SECRET_KEY='dummy' DOMAIN='' python manage.py collectstatic --noinput -i *.scss --no-default-ignore
 
 # Tell uWSGI where to find your wsgi file (change this):

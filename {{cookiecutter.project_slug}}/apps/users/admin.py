@@ -1,6 +1,5 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from django.utils.translation import ugettext_lazy as _
 
 from .models import User
 
@@ -18,7 +17,7 @@ class CustomUserAdmin(UserAdmin):
     fieldsets = (
         (None, {"fields": ("email", "password")}),
         (
-            _("Permissions"),
+            ("Permissions"),
             {
                 "fields": (
                     "is_active",

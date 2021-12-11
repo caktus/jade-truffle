@@ -7,7 +7,7 @@
   "prettier": "eslint-config-vinta/prettier",
   "scripts": {
     "dev": "gulp",
-    "build": "NODE_ENV=production ./node_modules/.bin/webpack --progress --config webpack.prod.config.js --bail",
+    "build": "NODE_ENV=production ./node_modules/.bin/webpack --progress --config webpack.config.js --bail",
     {% if cookiecutter.css_style == "tailwind" %}
     "build:css": "postcss ./{{cookiecutter.project_slug}}/assets/styles/tailwind_entry.css -o {{cookiecutter.project_slug}}/static/css/main.css --env 'production' --verbose"
     {% else %}

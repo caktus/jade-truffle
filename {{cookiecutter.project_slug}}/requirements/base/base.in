@@ -1,7 +1,7 @@
 # base.in
 
 # Core
-Django
+Django>=3.2,<4.0
 dj-database-url
 whitenoise
 django-extensions

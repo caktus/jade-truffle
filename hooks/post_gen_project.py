@@ -22,6 +22,9 @@ def clean_project():
     else:
         shutil.rmtree(Path("./.github"))
 
+    if "{{cookiecutter.project_type}}" == "django":
+        shutil.rmtree((Path("./apps/search")))
+
 
 def setup_node():
     print("Setting up Node")
