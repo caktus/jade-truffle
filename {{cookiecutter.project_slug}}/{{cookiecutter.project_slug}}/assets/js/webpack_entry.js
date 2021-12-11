@@ -22,4 +22,4 @@ window.$ = window.jQuery = jQuery;
  * Import javascript for your apps here
  *
  */
-import '../../apps/{{cookiecutter.primary_app}}/assets/js/main';
+import '../../../apps/{{cookiecutter.primary_app}}/assets/js/main';

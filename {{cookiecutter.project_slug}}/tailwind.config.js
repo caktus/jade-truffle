@@ -1,14 +1,11 @@
 // tailwind.config.js
 module.exports = {
   mode: 'jit',
-  purge: {
-    enabled: true,
-    content: [
+  content: [
       './apps/**/*.html',
       './apps/**/*.js',
       '{{cookiecutter.project_slug}}/templates/*.html'
     ],
-  },
   plugins: [
     require('@tailwindcss/typography'),
   ],

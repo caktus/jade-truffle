@@ -2,6 +2,7 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
+@import "../../../apps/{{cookiecutter.primary_app}}/assets/styles/tailwind/app_main.css";
 
 @layer components {
   /* Global Setup

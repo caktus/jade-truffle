@@ -4,7 +4,7 @@ const webpack = require("webpack-stream");
 
 gulp.task('javascript', function() {
   return gulp
-    .src("./{{cookiecutter.project_slug}}/assets/webpack_entry.js")
+    .src("./{{cookiecutter.project_slug}}/assets/js/webpack_entry.js")
     .pipe(webpack(require("./webpack.config.js")))
     .pipe(rename("main.js"))
     .pipe(gulp.dest("./{{cookiecutter.project_slug}}/static/js/"));
@@ -22,7 +22,7 @@ gulp.task('styles', function() {
   const tailwindcss = require("tailwindcss");
 
   return gulp
-    .src("./apps/{{cookiecutter.project_slug}}/assets/styles/tailwind/main.css")
+    .src("./{{cookiecutter.project_slug}}/assets/styles/tailwind_entry.css")
     .pipe(
       postcss([
         require("postcss-import"),
@@ -36,7 +36,12 @@ gulp.task('styles', function() {
 });
 
 gulp.task('watch-css', function(done) {
-  gulp.watch(['./apps/{{cookiecutter.project_slug}}/**/*.css', './tailwind.config.js'], gulp.series('styles'))
+  gulp.watch(
+    [
+      './apps/{{cookiecutter.project_slug}}/**/*.css',
+      './tailwind.config.js'
+    ], gulp.series('styles')
+  )
   done();
 });
 
@@ -44,14 +49,19 @@ gulp.task('watch-css', function(done) {
 gulp.task('styles', function() {
   const sass = require('gulp-sass')(require('sass'));
   return gulp
-    .src("./apps/{{cookiecutter.project_slug}}/assets/styles/sass/app.scss")
+    .src("./{{cookiecutter.project_slug}}/assets/styles/sass_entry.scss")
     .pipe(sass().on('error', sass.logError))
     .pipe(rename("main.css"))
     .pipe(gulp.dest("./{{cookiecutter.project_slug}}/static/css/"));
 });
 
 gulp.task('watch-css', function(done) {
-  gulp.watch(['./apps/{{cookiecutter.project_slug}}/assets/styles/sass/**/*.scss'], gulp.series('styles'))
+  gulp.watch(
+    [
+    './{{cookiecutter.project_slug}}/assets/styles/sass_entry.scss',
+    './apps/{{cookiecutter.project_slug}}/assets/styles/sass/**/*.scss'
+    ], gulp.series('styles')
+  );
   done();
 });
 {% endif %}

@@ -23,6 +23,10 @@ BASE_DIR = os.path.dirname(PROJECT_DIR)
 DEBUG = os.getenv("DJANGO_DEBUG", "False") == "True"
 ENVIRONMENT = os.getenv("ENVIRONMENT", "dev")
 
+# wagtailmenus packages are not defining this in their apps.py. This is to
+# suppress console warnings.
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
 # Application definition
 
 INSTALLED_APPS = [

@@ -44,7 +44,9 @@
 </head>
 
 <body>
-
+{% endraw %}
+    <div class="test_div">Hello Red {{cookiecutter.project_name}}</div>
+{% raw %}
     {% include 'includes/header.html' %}
 
     {% block content %}{% endblock %}

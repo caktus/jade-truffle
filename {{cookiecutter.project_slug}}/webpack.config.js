@@ -3,8 +3,9 @@ const path = require('path');
 
 module.exports = {
     bail: true,
+    mode: 'none',
     context: __dirname,
-    entry: ['./{{cookiecutter.project_slug}}/assets/webpack_entry.js'],
+    entry: ['./{{cookiecutter.project_slug}}/assets/js/webpack_entry.js'],
     resolve: {
         extensions: ['*', '.js'],
     },
