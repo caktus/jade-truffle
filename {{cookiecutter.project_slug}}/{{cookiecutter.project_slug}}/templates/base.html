@@ -30,13 +30,13 @@
     {% endif %}
 
     {# Global javascript #}
-    {% render_bundle 'main' %}
+    <script type="text/javascript" src="{% static 'js/main.js' %}"></script>
 
     {# favicon #}
 <!--    <link rel="shortcut icon" href="{% static 'favicon.ico' %}" type="image/x-icon">-->
 
     {# Base stylesheets #}
-    <link href="" rel="stylesheet" type="text/css" />
+    <link href="{% static 'css/main.css' %}" rel="stylesheet" type="text/css" />
 
 
     {% block extra_css %}
