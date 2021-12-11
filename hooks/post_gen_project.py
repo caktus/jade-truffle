@@ -14,7 +14,7 @@ def clean_project():
         Path("./{{cookiecutter.project_slug}}/assets/styles/tailwind_main.css").unlink()
         shutil.rmtree(Path("./apps/{{cookiecutter.project_slug}}/assets/styles/tailwind"))
     else:
-        Path("./{{cookiecutter.project_slug}}/assets/styles/sass_entry.css").unlink()
+        Path("./{{cookiecutter.project_slug}}/assets/styles/sass_entry.scss").unlink()
         shutil.rmtree(Path("./apps/{{cookiecutter.project_slug}}/assets/styles/sass"))
 
     if "{{cookiecutter.ci_cd}}" == "actions":
