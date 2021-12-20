@@ -1,11 +1,11 @@
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.db import models
 
-from apps.common.models import IndexedTimeStampedModel
+from model_utils.models import TimeStampedModel
 from apps.users.managers import UserManager
 
 
-class User(AbstractBaseUser, PermissionsMixin, IndexedTimeStampedModel):
+class User(AbstractBaseUser, PermissionsMixin, TimeStampedModel):
     email = models.EmailField(max_length=255, unique=True)
     is_staff = models.BooleanField(
         default=False,

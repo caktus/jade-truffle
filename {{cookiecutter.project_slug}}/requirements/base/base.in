@@ -6,8 +6,6 @@ dj-database-url
 whitenoise
 django-extensions
 django-model-utils
-psycopg2-binary
-charset-normalizer
 django-storages
 boto3
 

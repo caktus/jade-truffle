@@ -37,6 +37,7 @@ aws_ec2.yml
 # Editor files
 .idea/*
 .vscode/*
+.swp
 
 # Linter Cache
 .mypy_cache/*

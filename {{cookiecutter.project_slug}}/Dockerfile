@@ -7,7 +7,7 @@ COPY . /code/
 RUN npm run build
 RUN npm run build:css
 
-FROM python:3.8-slim as base
+FROM python:3.9-slim-bullseye as base
 
 # Install packages needed to run your application (not build deps):
 #   mime-support -- for mime types when serving static files

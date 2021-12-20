@@ -12,4 +12,3 @@ ignore =
     E501,
     F841,   # Line too long
     E741,   # Ambiguous variable
-    W042,   # DEFAULT_AUTO_FIELD

@@ -34,5 +34,5 @@ k8s_environment_variables:
         NEW_RELIC_APP_NAME: "{{ env_new_relic_app_name }}"
         NEW_RELIC_LICENSE_KEY: "{{ env_new_relic_license_key }}"
         SENTRY_DSN: "{{ env_sentry_dsn }}"
-        DJANGO_SECRET_KEY:
+        DJANGO_SECRET_KEY: <<FILL IN>>
 {% endraw %}
