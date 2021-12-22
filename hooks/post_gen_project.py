@@ -12,10 +12,10 @@ def clean_project():
         Path("./tailwind.config.js").unlink()
         Path("./postcss.config.js").unlink()
         Path("./{{cookiecutter.project_slug}}/assets/styles/tailwind_entry.css").unlink()
-        shutil.rmtree(Path("./apps/{{cookiecutter.project_slug}}/assets/styles/tailwind"))
+        shutil.rmtree(Path("./apps/{{cookiecutter.primary_app}}/assets/styles/tailwind"))
     else:
         Path("./{{cookiecutter.project_slug}}/assets/styles/sass_entry.scss").unlink()
-        shutil.rmtree(Path("./apps/{{cookiecutter.project_slug}}/assets/styles/sass"))
+        shutil.rmtree(Path("./apps/{{cookiecutter.primary_app}}/assets/styles/sass"))
 
     if "{{cookiecutter.ci_cd}}" == "actions":
         shutil.rmtree(Path("./.circleci"))

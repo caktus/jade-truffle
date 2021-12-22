@@ -11,7 +11,7 @@ gulp.task('javascript', function() {
 });
 
 gulp.task('watch-js', function(done) {
-  gulp.watch(["./apps/{{cookiecutter.project_slug}}/assets/js/**/*.js"], gulp.series("javascript"));
+  gulp.watch(["./apps/{{cookiecutter.primary_app}}/assets/js/**/*.js"], gulp.series("javascript"));
   done();
 })
 
@@ -38,7 +38,7 @@ gulp.task('styles', function() {
 gulp.task('watch-css', function(done) {
   gulp.watch(
     [
-      './apps/{{cookiecutter.project_slug}}/**/*.css',
+      './apps/{{cookiecutter.primary_app}}/**/*.css',
       './tailwind.config.js'
     ], gulp.series('styles')
   )
@@ -59,7 +59,7 @@ gulp.task('watch-css', function(done) {
   gulp.watch(
     [
     './{{cookiecutter.project_slug}}/assets/styles/sass_entry.scss',
-    './apps/{{cookiecutter.project_slug}}/assets/styles/sass/**/*.scss'
+    './apps/{{cookiecutter.primary_app}}/assets/styles/sass/**/*.scss'
     ], gulp.series('styles')
   );
   done();
