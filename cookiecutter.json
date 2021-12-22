@@ -3,6 +3,7 @@
   "project_app": "{{ cookiecutter.project_name.lower()|replace(' ', '_')|replace('-', '_')|replace('.', '_')|trim() }}",
   "primary_app": "{{ cookiecutter.project_slug }}",
   "python_version": "3.9.6",
+  "node_version": "lts/*",
   "project_type": ["wagtail", "django"],
   "testing_type": ["pytest", "django"],
   "css_style": ["sass", "tailwind"],

@@ -22,12 +22,13 @@ The hope is that future work will add to the deployment methods.
 Requirements
 ------------
 
--   Python 3.8
+-   Python >= 3.8
 -   pip-tools
 -   cookiecutter
 -   A virtual environment manager
 -   direnv
 -   pyenv
+-   nvm
 
 Installation
 ------------

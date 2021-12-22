@@ -1,1 +1,1 @@
-lts/fermium
+{{ cookiecutter.node_version }}
