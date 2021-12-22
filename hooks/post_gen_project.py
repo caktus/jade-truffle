@@ -11,10 +11,10 @@ def clean_project():
     if "{{cookiecutter.css_style}}" == "sass":
         Path("./tailwind.config.js").unlink()
         Path("./postcss.config.js").unlink()
-        Path("./{{cookiecutter.project_slug}}/assets/styles/tailwind_entry.css").unlink()
+        Path("./{{cookiecutter.project_app}}/assets/styles/tailwind_entry.css").unlink()
         shutil.rmtree(Path("./apps/{{cookiecutter.primary_app}}/assets/styles/tailwind"))
     else:
-        Path("./{{cookiecutter.project_slug}}/assets/styles/sass_entry.scss").unlink()
+        Path("./{{cookiecutter.project_app}}/assets/styles/sass_entry.scss").unlink()
         shutil.rmtree(Path("./apps/{{cookiecutter.primary_app}}/assets/styles/sass"))
 
     if "{{cookiecutter.ci_cd}}" == "actions":
@@ -68,7 +68,7 @@ def setup_node():
         base_deps += sass_deps
 
     subprocess.run(['/bin/bash', '-i', '-c', 'export NVM_DIR="$HOME/.nvm" && [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" && nvm use'])
-    subprocess.run(['nvm', 'install-latest-npm'])
+    subprocess.run(['/bin/bash', '-i', '-c', 'nvm', 'install-latest-npm'])
 
     for dep in base_deps:
         subprocess.run(['npm', 'install', '--silent', dep])
@@ -81,8 +81,8 @@ def setup_python():
 
 def setup_local_py():
     print("Setting up local.py")
-    Path("./{{cookiecutter.project_slug}}/settings/local.example.py")\
-        .rename("./{{cookiecutter.project_slug}}/settings/local.py")
+    Path("./{{cookiecutter.project_app}}/settings/local.example.py")\
+        .rename("./{{cookiecutter.project_app}}/settings/local.py")
 
 
 def main():

@@ -1,7 +1,7 @@
 {
   "project_name": "Apple Pie",
   "project_app": "{{ cookiecutter.project_name.lower()|replace(' ', '_')|replace('-', '_')|replace('.', '_')|trim() }}",
-  "primary_app": "{{ cookiecutter.project_slug }}",
+  "primary_app": "{{ cookiecutter.project_app }}",
   "python_version": "3.9.6",
   "node_version": "lts/*",
   "project_type": ["wagtail", "django"],
