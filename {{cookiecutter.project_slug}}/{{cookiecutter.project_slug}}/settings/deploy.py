@@ -17,8 +17,8 @@ ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "localhost").split(":")
 EMAIL_HOST = os.getenv("EMAIL_HOST", "localhost")
 EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER", "")
 EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD", "")
-EMAIL_USE_TLS = os.getenv("EMAIL_USE_TLS", False)
-EMAIL_USE_SSL = os.getenv("EMAIL_USE_SSL", False)
+EMAIL_USE_TLS = os.getenv("EMAIL_USE_TLS", "False") == "True"
+EMAIL_USE_SSL = os.getenv("EMAIL_USE_SSL", "False") == "True"
 # use TLS or SSL, not both:
 assert not (EMAIL_USE_TLS and EMAIL_USE_SSL)
 if EMAIL_USE_TLS:
@@ -81,15 +81,3 @@ if SENTRY_DSN:
         integrations=[DjangoIntegration()],
         environment=ENVIRONMENT,
     )
-
-
-WEBPACK_LOADER = {
-    "DEFAULT": {
-        "CACHE": True,
-        "BUNDLE_DIR_NAME": "js/bundles/",  # must end with slash
-        "STATS_FILE": os.path.join(BASE_DIR, "webpack-stats-production.json"),
-        # 'POLL_INTERVAL': 0.1,
-        # 'TIMEOUT': None,
-        "IGNORE": [r".+\.hot-update.js", r".+\.map"],
-    }
-}
