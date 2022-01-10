@@ -30,6 +30,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # Application definition
 
 INSTALLED_APPS = [
+    "apps.client_onboarding",
     "apps.common",
     "apps.{{ cookiecutter.primary_app }}",
     "apps.users",

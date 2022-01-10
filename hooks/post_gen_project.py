@@ -67,7 +67,8 @@ def setup_node():
     else:
         base_deps += sass_deps
 
-    subprocess.run(['/bin/bash', '-i', '-c', 'nvm use'])
+    # subprocess.run(['/bin/bash', '-i', '-c', 'nvm use'])
+    subprocess.run(['/bin/bash', '-i', '-c', 'export NVM_DIR="$HOME/.nvm" && [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" && nvm use'])
 
     for dep in base_deps:
         subprocess.run(['npm', 'install', '--silent', dep])

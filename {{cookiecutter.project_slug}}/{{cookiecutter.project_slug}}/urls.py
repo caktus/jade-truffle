@@ -2,6 +2,8 @@ from django.conf import settings
 from django.conf.urls import include
 from django.contrib import admin
 from django.urls import path
+from apps.client_onboarding import views as client_views
+
 {% if cookiecutter.project_type == "django" -%}
 from .views import HomePageView
 {%endif %}
@@ -15,6 +17,9 @@ from apps.search import views as search_views
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path("caktus-portal/", client_views.list_links),
+    # This line will be deleted or modified once the project has a different homepage
+    path("", client_views.list_links),
 ]
 
 {% if cookiecutter.project_type == "wagtail" %}
