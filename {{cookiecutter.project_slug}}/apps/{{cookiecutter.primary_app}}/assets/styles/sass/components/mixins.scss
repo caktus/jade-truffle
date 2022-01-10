@@ -1,0 +1,15 @@
+@mixin font-bold() {
+    font-family: 'gt_walsheim_bold';
+}
+
+@mixin radius($r) {
+-webkit-border-radius: $r;
+-moz-border-radius: $r;
+border-radius: $r;
+}
+
+@mixin box-shadow($x, $y, $blur: 9px, $spread: -3px, $rgba: rgba(0, 0, 0, 0.4)) {
+	-webkit-box-shadow: $x $y $blur $spread $rgba;
+	-moz-box-shadow: $x $y $blur $spread $rgba;
+	box-shadow: $x $y $blur $spread $rgba;
+}
