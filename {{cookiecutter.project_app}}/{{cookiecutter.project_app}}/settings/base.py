@@ -30,7 +30,6 @@ DEFAULT_AUTO_FIELD = "django.db.:models.BigAutoField"
 # Application definition
 
 INSTALLED_APPS = [
-    "apps.common",
     "apps.{{ cookiecutter.primary_app }}",
     "apps.users",
     "django.contrib.admin",
@@ -58,8 +57,7 @@ INSTALLED_APPS += [
     "wagtail.admin",
     "wagtail.core",
     "modelcluster",
-    # Full list of icons available @ https://fontawesome.com/v4.7.0/icons/
-    "wagtailfontawesome",
+    "wagtail.contrib.styleguide"
     "wagtail.contrib.modeladmin",
     "wagtailmenus",
 ]
