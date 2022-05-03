@@ -59,7 +59,6 @@ INSTALLED_APPS += [
     "modelcluster",
     "wagtail.contrib.styleguide",
     "wagtail.contrib.modeladmin",
-    "wagtailmenus",
 ]
 {% endif %}
 

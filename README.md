@@ -22,7 +22,7 @@ The hope is that future work will add to the deployment methods.
 Requirements
 ------------
 
--   Python >= 3.8
+-   Python >= 3.8 < 3.10 #Until the backports bug is fixed in 3.11
 -   pip-tools
 -   cookiecutter
 -   A virtual environment manager
