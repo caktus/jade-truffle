@@ -25,7 +25,7 @@ ENVIRONMENT = os.getenv("ENVIRONMENT", "dev")
 
 # wagtailmenus packages are not defining this in their apps.py. This is to
 # suppress console warnings.
-DEFAULT_AUTO_FIELD = "django.db.:models.BigAutoField"
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # Application definition
 
@@ -57,7 +57,7 @@ INSTALLED_APPS += [
     "wagtail.admin",
     "wagtail.core",
     "modelcluster",
-    "wagtail.contrib.styleguide"
+    "wagtail.contrib.styleguide",
     "wagtail.contrib.modeladmin",
     "wagtailmenus",
 ]
