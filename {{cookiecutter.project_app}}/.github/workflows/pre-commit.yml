@@ -1,0 +1,16 @@
+name: pre-commit
+
+on:
+  pull_request
+
+jobs:
+  pre-commit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v2
+        with:
+          python-version: {{ cookiecutter.python_version }}
+      - uses: pre-commit/action@v2.0.3

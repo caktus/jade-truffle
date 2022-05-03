@@ -1,0 +1,49 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+@import "../../../apps/{{cookiecutter.primary_app}}/assets/styles/tailwind/app_main.css";
+
+@layer components {
+  /* Global Setup
+    Gives a flex column global flow and allows for a sticky footer
+  */
+
+  html {
+    @apply h-full;
+  }
+
+  body {
+    @apply h-full flex flex-col bg-white;
+  }
+
+  .content {
+    @apply flex-grow flex-shrink-0;
+  }
+
+  footer {
+    @apply flex-shrink-0;
+  }
+
+  /* Global Setup */
+
+  .content-well {
+    /*Max width is 1280 rather than 1140 */
+    @apply flex flex-col flex-grow my-0 py-0 px-2 md:px-8 w-full mx-auto max-w-screen-2xl justify-center;
+  }
+
+  .full_width_content {
+    @apply flex flex-col flex-grow my-0;
+  }
+
+  .content-fullwidth-page {
+    @apply w-full;
+  }
+
+  .content-sidebar-page {
+    @apply flex flex-col py-10;
+  }
+
+
+}
+

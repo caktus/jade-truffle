@@ -1,0 +1,8 @@
+/*More imports for the app here*/
+
+@layer components {
+  .test_div {
+    @apply flex flex-col p-4 text-red-100;
+  }
+}
+

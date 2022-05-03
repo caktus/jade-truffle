@@ -1,11 +1,15 @@
 {
-  "project_name": "You Know for kids",
-  "project_slug": "{{ cookiecutter.project_name.lower()|replace(' ', '_')|replace('-', '_')|replace('.', '_')|trim() }}",
-  "project_type": ["django", "wagtail"],
-  "testing_type": ["django", "pytest"],
-  "css_style": ["sass", "roll-my-own"],
+  "project_name": "Apple Pie",
+  "project_app": "{{ cookiecutter.project_name.lower()|replace(' ', '_')|replace('-', '_')|replace('.', '_')|trim() }}",
+  "primary_app": "{{ cookiecutter.project_app }}",
+  "primary_app_config": "{{ cookiecutter.project_app|replace('_','')|capitalize()|trim() }}",
+  "python_version": "3.9.6",
+  "node_version": "lts/*",
+  "project_type": ["wagtail", "django"],
+  "testing_type": ["pytest", "django"],
+  "css_style": ["sass", "tailwind"],
+  "ci_cd": ["actions", "circleci"],
   "cloud_provider": ["aws", "gcp"],
   "postgres_port": "5432",
-  "primary_app": "{{ cookiecutter.project_slug }}",
   "project_domain_name": "caktus-built.com"
 }

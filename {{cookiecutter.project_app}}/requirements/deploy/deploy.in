@@ -1,0 +1,9 @@
+# Deploy.in
+-c ../base/base.txt
+
+sentry-sdk
+newrelic
+openshift
+kubernetes-validate
+uWSGI
+python-memcached

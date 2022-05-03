@@ -1,0 +1,26 @@
+# Dev requirements
+-c ../base/base.txt
+
+django-debug-toolbar
+ipython
+invoke
+pre-commit
+black
+coverage
+invoke-kubesae
+awscli
+boto
+
+# For testing
+factory_boy
+
+{% if cookiecutter.testing_type == 'pytest' %}
+pytest
+pytest-cov
+pytest-django
+pytest-subtests
+{% endif %}
+
+{% if cookiecutter.project_type == 'django' %}
+beautifulsoup4
+{% endif %}

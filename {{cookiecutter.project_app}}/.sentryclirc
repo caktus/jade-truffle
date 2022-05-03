@@ -1,0 +1,5 @@
+[defaults]
+org = caktus
+project = {{ cookiecutter.project_app }}
+[auth]
+token = <<FILL IN>>

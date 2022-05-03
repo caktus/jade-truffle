@@ -1,0 +1,22 @@
+{
+  "name": "{{ cookiecutter.project_app }}",
+  "version": "0.0.1",
+  "private": true,
+  "description": "{{ cookiecutter.project_app }}",
+  "main": "index.js",
+  "prettier": "eslint-config-vinta/prettier",
+  "scripts": {
+    "dev": "gulp",
+    "build": "NODE_ENV=production ./node_modules/.bin/webpack --progress --config webpack.config.js --bail",
+    {% if cookiecutter.css_style == "tailwind" %}
+    "build:css": "postcss ./{{cookiecutter.project_app}}/assets/styles/tailwind_entry.css -o {{cookiecutter.project_app}}/static/css/main.css --env 'production' --verbose"
+    {% else %}
+    "build:css": "sass ./{{cookiecutter.project_app}}/assets/styles/sass_entry.scss:./{{cookiecutter.project_app}}/static/css/main.css --style compressed"
+    {% endif %}
+  },
+  "babel": {
+    "presets": [
+      "@babel/preset-env"
+    ]
+  }
+}

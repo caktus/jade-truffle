@@ -1,0 +1,107 @@
+---
+
+# ----------------------------------------------------------------------------
+# Global: CloudFormation stack outputs. See all.yml for stack parameters.
+# ----------------------------------------------------------------------------
+
+ClusterEndpoint: <<FILL IN>> # The connection endpoint for the EKS cluster API. -
+DatabaseAddress: <<FILL IN>> # The connection endpoint for the database. -
+RepositoryURL: <<FILL IN>> # The docker repository URL
+
+# ----------------------------------------------------------------------------
+# caktus.k8s-web-cluster: An Ansible role to help configure Kubernetes
+#                         clusters for web apps.
+# ----------------------------------------------------------------------------
+
+k8s_cluster_name: <<FILL_IN>>
+k8s_context: <<FILL_IN>>
+k8s_cluster_type: aws
+k8s_ingress_nginx_chart_version: "4.0.18"
+# https://github.com/jetstack/cert-manager/releases
+k8s_cert_manager_chart_version: "v1.7.2"
+
+
+# ----------------------------------------------------------------------------
+# caktus.django-k8s: Shared configuration variables for staging and production
+#                    environments.
+# ----------------------------------------------------------------------------
+
+{% raw %}
+k8s_auth_host: "{{ ClusterEndpoint }}"
+k8s_auth_ssl_ca_cert: "k8s_auth_ssl_ca_cert.txt"
+k8s_namespace: "{{ app_name }}-{{ env_name }}"
+
+k8s_ingress_certificate_issuer: letsencrypt-production
+
+# ----------------------------------------------------------------------------
+# App Pod Configuration
+# ----------------------------------------------------------------------------
+k8s_container_name: app
+k8s_container_port: 8000
+k8s_container_image: "{{ RepositoryURL }}/learn-appli-14ljm5uijjeox"
+k8s_container_image_pull_policy: Always
+k8s_container_replicas: 2
+k8s_migrations_enabled: true
+k8s_collectstatic_enabled: false
+k8s_container_ingress_annotations:
+  nginx.ingress.kubernetes.io/proxy-body-size: 100m
+  # These are in seconds, but need to be specified without the trailing 's'
+  # usually seen in nginx.conf proper.
+  nginx.ingress.kubernetes.io/proxy-connect-timeout: 1800
+  nginx.ingress.kubernetes.io/proxy-send-timeout: 1800
+  nginx.ingress.kubernetes.io/proxy-read-timeout: 1800
+  # Workaround for lack of annotation for send_timeout parameter:
+  # https://github.com/kubernetes/ingress-nginx/issues/2441#issuecomment-419714384
+  nginx.ingress.kubernetes.io/configuration-snippet: |
+    send_timeout 1800s;
+
+k8s_letsencrypt_email: admin@caktusgroup.com
+# New Relic Infrastructure: Caktus Paid Account
+k8s_newrelic_license_key: !vault |
+  $ANSIBLE_VAULT;1.1;AES256
+  38376132313334336465396465626635333861646361653139316465653338636562303136393762
+  3264653137396263393362393831633037353638373132360a353530333938323834396138356337
+  33333839333432356465393862323361316430643233366134393438643663323334373362343338
+  6166356464616566330a313630393466613239383235396334306230643963366538313536303232
+  30656432656535303866663535653634373161333966316363386634363964356332343532356539
+  3365373664353237353161333964336366653537626564326661
+
+k8s_papertrail_logspout_destination: !vault |
+  $ANSIBLE_VAULT;1.1;AES256
+  62383533333462643736353935346533306364616435336335363132613136336665393630346230
+  3862316561666663396437313330623339323838376532350a373539623063323730333930656637
+  63376365636265646137323863666464643538613939393133373634376638353564313531663333
+  3432336532656665320a363638323631343734313431353035626237316464653539336139336138
+  37336239663263343637366633326432333435336265623739313238313831303637346266326430
+  3632396565363064333038376331616566346439326334393761
+
+k8s_papertrail_logspout_memory_limit: 128Mi
+
+k8s_memcached_enabled: true
+k8s_memcached_version: "1.6.9"
+
+# Users are automatically granted access via the CaktusAccessRole. The below user
+# is a backup user in case something goes wrong and cluster access must be
+# restored.
+k8s_iam_users: [noop]
+
+# S3 bucket configuration:
+k8s_s3_region: "{{ aws_region }}"
+k8s_s3_cluster_name: "{{ k8s_cluster_name }}"
+
+
+# ----------------------------------------------------------------------------
+# Shared Environment Variables
+# ----------------------------------------------------------------------------
+env_database_url: "postgres://{{ app_name }}_{{ env_name }}:{{ database_password }}@{{ DatabaseAddress }}:5432/{{ app_name }}_{{ env_name }}"
+env_django_settings: "{{ app_name}}.settings.deploy"
+env_cache_host: memcached:11211
+env_default_file_storage: "{{ app_name }}.storages.MediaBoto3Storage"
+env_media_storage_bucket_name: "{{ app_name }}-{{ env_name }}-assets"
+env_media_location: media/
+# New Relic APM: Caktus Free Account
+env_new_relic_app_name: "{{ k8s_namespace }}"
+env_new_relic_license_key: <<FILL_IN>>
+env_sentry_dsn: <<FILL_IN>>
+
+{% endraw %}
