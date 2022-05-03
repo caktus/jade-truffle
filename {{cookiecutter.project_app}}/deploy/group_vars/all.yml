@@ -1,0 +1,132 @@
+---
+
+# ----------------------------------------------------------------------------
+# Global: Common configuration variables for all environments being deployed
+#         to Kubernetes.
+# ----------------------------------------------------------------------------
+
+aws_app_name: {{ cookiecutter.project_app|replace('_', '-') }}
+django_app_name: {{ cookiecutter.project_app }}
+ansible_connection: local
+
+aws_region: <<FILL IN>>
+aws_profile: "{{ cookiecutter.project_app }}"
+
+admin_database_password: <<FILL IN>>
+{% raw %}
+# ----------------------------------------------------------------------------
+# AWS Web Stacks: Configuration variables to be used by the
+#                 caktus/aws-web-stacks role
+# ----------------------------------------------------------------------------
+
+cloudformation_stack_profile: '{{ aws_profile }}'
+cloudformation_stack_region: '{{ aws_region }}'
+cloudformation_stack_name: '{{ aws_app_name }}-stack'
+cloudformation_stack_template_local_path: '{{ playbook_dir + "/stack/eks-nat.yaml" }}'
+cloudformation_stack_template_bucket: 'aws-web-stacks-{{ aws_app_name }}'
+cloudformation_stack_template_bucket_path: 'templates/{{ cloudformation_stack_name }}.yaml'
+cloudformation_stack_create_changeset: true
+cloudformation_stack_template_parameters:
+  PrimaryAZ: "{{ aws_region }}a"
+  SecondaryAZ: "{{ aws_region }}b"
+  DesiredScale: 2
+  MaxScale: 2
+  UseAES256Encryption: "true"
+  CustomerManagedCmkArn: "arn:aws:kms:us-east-2:214592501124:key/61cce26a-f530-448b-83ca-ad1efdaf12e9"
+  ContainerInstanceType: t3a.medium
+  ContainerVolumeSize: 30
+  DatabaseClass: db.t3.small
+  DatabaseEngineVersion: "14"
+  DatabaseParameterGroupFamily: postgres14
+  DatabaseMultiAZ: "true"
+  DatabaseUser: "{{ admin_database_user|default(django_app_name) }}"
+  DatabasePassword: "{{ admin_database_password }}"
+  DatabaseName: "{{ admin_database_name|default(django_app_name) }}"
+  DomainName: "{{ aws_app_name }}." ## What should this be
+  DomainNameAlternates: ""
+  AssetsUseCloudFront: "false"
+  # Bastion host
+  BastionKeyName: <<FILL_IN>>
+  {% endraw %}
+#---
+#
+## ----------------------------------------------------------------------------
+## Global: Common configuration variables for all environments being deployed
+##         to Kubernetes.
+## ----------------------------------------------------------------------------
+#
+#app_name: {{ cookiecutter.project_app }}
+#ansible_connection: local
+#
+#aws_region: <<FILL IN>>
+#aws_profile: "{{ cookiecutter.project_app }}"
+#
+#admin_database_password: <<FILL IN>>
+#domain_name: {{ cookiecutter.project_domain_name }}
+#
+#caktus_access_role_arn: <<FILL IN>>
+#
+## ----------------------------------------------------------------------------
+## caktus.aws-web-stacks: Ansible role to automate AWS CloudFormation stack
+##                        provisioning with aws-web-stacks.
+## ----------------------------------------------------------------------------
+#{% raw %}
+#stack_name: '{{ app_name }}-stack'
+#
+#cloudformation_stack:
+#  region: "{{ aws_region }}"
+#  stack_name: "{{ stack_name }}"
+#  template_bucket: "aws-web-stacks-{{ app_name }}"
+#  # Webstacks required variable
+#  template_local_path: '{{ playbook_dir + "/stack/eks-no-nat.yml" }}'
+#  create_changeset: true
+#  termination_protection: true
+#
+#  template_parameters:
+#    PrimaryAZ: "{{ aws_region }}a"
+#    SecondaryAZ: "{{ aws_region }}b"
+#    DesiredScale: 2
+#    MaxScale: 4
+#    UseAES256Encryption: "true"
+#    CustomerManagedCmkArn: ""
+#    ContainerInstanceType: t3a.medium
+#    DatabaseClass: db.t3.micro
+#    DatabaseEngineVersion: "11"
+#    DatabaseParameterGroupFamily: postgres11
+#    DatabaseMultiAZ: "true"
+#    DatabaseUser: "{{ app_name }}_admin"
+#    DatabasePassword: "{{ admin_database_password }}"
+#    DatabaseName: "{{ app_name }}"
+#    DomainName: "{{ app_name }}.{{ domain_name }}"
+#    DomainNameAlternates: ""
+#    AssetsUseCloudFront: "false"
+#  tags:
+#    Environment: "{{ app_name }}"
+#
+## ----------------------------------------------------------------------------
+## caktus.k8s-web-cluster: An Ansible role to help configure Kubernetes
+##                         clusters for web apps.
+## ----------------------------------------------------------------------------
+#
+k8s_cluster_name: "{{ cloudformation_stack.stack_name }}-cluster"
+k8s_context: "{{ caktus_access_rol_arn }}/{{ k8s_cluster_name }}"
+k8s_cluster_type: aws
+
+# Continuous integration:
+k8s_ci_aws_profile: "{{ aws_profile }}"
+k8s_ci_repository_arn: <<FILL IN>>
+k8s_ci_vault_password_arn: <<FILL IN>>
+
+k8s_letsencrypt_email: admin@caktusgroup.com
+# New Relic Infrastructure: Caktus Paid Account
+k8s_newrelic_license_key: <<FILL IN>>
+
+k8s_papertrail_logspout_destination: <<FILL IN>>
+k8s_papertrail_logspout_memory_limit: 128Mi
+
+# Users are automatically granted access via the CaktusAccessRole. The below user
+# is a backup user in case something goes wrong and cluster access must be
+# restored.
+k8s_iam_users:
+  - <<FILL IN>>
+#{% endraw %}

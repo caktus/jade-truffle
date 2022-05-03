@@ -1,5 +1,0 @@
-[defaults]
-org = caktus
-project = {{ cookiecutter.project_slug }}
-[auth]
-token = <<FILL IN>>

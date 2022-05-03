@@ -1,0 +1,18 @@
+# base.in
+
+# Core
+Django>=3.2,<4.0
+dj-database-url
+whitenoise
+django-extensions
+django-model-utils
+django-storages
+boto3
+
+# Postgres
+psycopg2-binary
+
+{% if cookiecutter.project_type == 'wagtail' %}
+# Wagtail
+wagtail
+{% endif %}
