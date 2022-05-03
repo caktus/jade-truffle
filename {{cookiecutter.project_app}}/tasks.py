@@ -79,6 +79,7 @@ ns.add_task(production)
 ns.configure(
     {
         "app": "{{ cookiecutter.project_app }}_app",
+        "aws": {"region": "<<FILL_IN>>", "profile_name": "{{ cookiecutter.project_app }}"},
         "cluster": "{{ cookiecutter.project_app }}-stack-cluster",
         "container_name": "app",
         "repository": "<<Container Repository Here>>",
