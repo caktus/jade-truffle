@@ -13,7 +13,7 @@ def clean_project():
         Path("./postcss.config.js").unlink()
         Path("./{{cookiecutter.project_app}}/assets/styles/tailwind_entry.css").unlink()
         shutil.rmtree(Path("./apps/{{cookiecutter.primary_app}}/assets/styles/tailwind"))
-    else:
+    elif "{{cookiecutter.css_style}}" == "tailwind":
         Path("./{{cookiecutter.project_app}}/assets/styles/sass_entry.scss").unlink()
         shutil.rmtree(Path("./apps/{{cookiecutter.primary_app}}/assets/styles/sass"))
 

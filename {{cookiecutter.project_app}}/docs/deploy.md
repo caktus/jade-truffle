@@ -1,5 +1,15 @@
+# Continuous Integration and Deployment
+This is a big topic, but for the most part the project should be ready to push to a repo and run tests.
 
-# Deploying {{ cookiecutter.project_app }}
+A couple of things to keep in mind.
+
+If you want your deploys to ping slack, you will need to configure your CI envionments with 
+Slack Credentials.
+
+If you are using Github actions, see [action-slack](https://github.com/marketplace/actions/action-slack) for 
+configuration details.
+
+# Manual Deploying {{ cookiecutter.project_app }}
 
 {{ cookiecutter.project_app }} is configured with continuous deployment, but in the eventuality manual deployment is required the following steps will deploy to a configured environment.
 
