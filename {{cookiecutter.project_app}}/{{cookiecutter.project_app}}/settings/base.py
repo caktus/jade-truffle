@@ -273,7 +273,4 @@ ADMINS = os.getenv(
     ],
 )
 
-GENERAL_INQUIRY_EMAIL_RECIPIENTS = [e[1] for e in ADMINS]
-EVENT_SIGNUP_FORM_SUBMISSION_RECIPIENTS = GENERAL_INQUIRY_EMAIL_RECIPIENTS
-
 DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL", "no-reply@{{ cookiecutter.project_app }}.{{ cookiecutter.project_domain_name }}")
