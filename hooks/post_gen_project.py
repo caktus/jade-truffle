@@ -69,8 +69,6 @@ def setup_node():
 
     subprocess.run(['/bin/bash', '-i', '-c', 'export NVM_DIR="$HOME/.nvm" && [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" && nvm use'])
     subprocess.run(['/bin/bash', '-i', '-c', 'nvm', 'install-latest-npm'])
-    # subprocess.run(['/bin/bash', '-i', '-c', 'nvm use'])
-    subprocess.run(['/bin/bash', '-i', '-c', 'export NVM_DIR="$HOME/.nvm" && [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" && nvm use'])
 
     for dep in base_deps:
         subprocess.run(['npm', 'install', '--silent', dep])
