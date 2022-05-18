@@ -2,3 +2,4 @@
 .idea
 .envrc
 .direnv
+.vault_pass
