@@ -10,6 +10,7 @@
   "css_style": ["sass", "tailwind"],
   "ci_cd": ["actions", "circleci"],
   "cloud_provider": ["aws", "gcp"],
+  "postgres_version": ["11","12", "13", "14"],
   "postgres_port": "5432",
   "project_domain_name": "caktus-built.com"
 }

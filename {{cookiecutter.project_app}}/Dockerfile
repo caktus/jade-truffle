@@ -18,11 +18,16 @@ RUN set -ex \
     && RUN_DEPS=" \
     libpcre3 \
     mime-support \
-    postgresql-client \
+    curl \
+    ca-certificates \
+    gnupg2 \
     vim \
     " \
     && seq 1 8 | xargs -I{} mkdir -p /usr/share/man/man{} \
     && apt-get update && apt-get install -y --no-install-recommends $RUN_DEPS \
+    && curl https://www.postgresql.org/media/keys/ACCC4CF8.asc | gpg --dearmor | tee /etc/apt/trusted.gpg.d/apt.postgresql.org.gpg >/dev/null \
+    && sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt/ bullseye-pgdg main" > /etc/apt/sources.list.d/postgresql.list' \
+    && apt-get update && apt-get install -y --no-install-recommends postgresql-client-{{ cookiecutter.postgres_version }} \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy in your requirements file
