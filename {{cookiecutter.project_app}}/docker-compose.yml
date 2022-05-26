@@ -9,7 +9,7 @@ services:
       POSTGRES_HOST_AUTH_METHOD: trust
       POSTGRES_DB: {{ cookiecutter.project_app }}
       DATABASE_URL: postgres://postgres@127.0.01:{{ cookiecutter.postgres_port }}/{{ cookiecutter.project_app }}
-    image: postgres:12-alpine
+    image: postgres:{{ cookiecutter.postgres_version }}-alpine
     ports:
       - "{{ cookiecutter.postgres_port }}:5432"
     volumes:
