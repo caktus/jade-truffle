@@ -1,0 +1,17 @@
+layout pyenv {{ cookiecutter.python_version }}
+layout python
+export DJANGO_SETTINGS_MODULE={{ cookiecutter.project_app }}.settings.local
+export PGHOST=127.0.0.1
+export PGPORT={{ cookiecutter.postgres_port }}
+export PGUSER=postgres
+export PGDATABASE={{ cookiecutter.project_app }}
+export DATABASE_URL=postgres://127.0.0.1:{{ cookiecutter.postgres_port }}/{{ cookiecutter.project_app }}
+
+nvmrc=~/.nvm/nvm.sh
+if [ -e $nvmrc ]; then
+  source $nvmrc
+  nvm use
+fi
+
+PATH_add ./node_modules/.bin
+unset PS1

@@ -45,7 +45,6 @@ INSTALLED_APPS += [
     "apps.search",
     "taggit",
     "wagtail.contrib.forms",
-    "wagtail.contrib.postgres_search",
     "wagtail.contrib.redirects",
     "wagtail.embeds",
     "wagtail.sites",
@@ -60,6 +59,12 @@ INSTALLED_APPS += [
     "wagtail.contrib.styleguide",
     "wagtail.contrib.modeladmin",
 ]
+
+WAGTAILSEARCH_BACKENDS = {
+    'default': {
+        'BACKEND': 'wagtail.search.backends.database',
+    }
+}
 {% endif %}
 
 MIDDLEWARE = [
@@ -92,9 +97,6 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
-                {% if cookiecutter.project_type == 'wagtail' -%}
-                "wagtailmenus.context_processors.wagtailmenus",
-                {%- endif %}
             ],
         },
     },
