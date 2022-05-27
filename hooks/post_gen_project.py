@@ -25,6 +25,9 @@ def clean_project():
     if "{{cookiecutter.project_type}}" == "django":
         shutil.rmtree((Path("./apps/search")))
 
+    print("Renaming .envrc")
+    Path(Path().cwd(), ".envrc_template").rename(Path(Path().cwd(), ".envrc"))
+
 
 def setup_node():
     print("Setting up Node")
