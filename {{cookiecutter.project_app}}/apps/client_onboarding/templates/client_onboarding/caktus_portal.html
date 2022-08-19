@@ -1,0 +1,50 @@
+{% raw %}
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+    <!-- Begin Navbar -->
+    <div class="navbar" role="navigation">
+        {% block navbar %}
+            <div class="navbar-container">
+                <div>
+                    <a>
+                        <img class="logo" src="{% static "images/caktus-logo-426x234.png" %}"/>
+                    </a>  
+                </div>
+
+                <nav class="menu">
+                    <ul class="flexbox">
+                        <li class="blogs">
+                            <a href="https://www.caktusgroup.com/caktus-blogs/">Blogs <span class="fa">{% include "client_onboarding/angle-down.svg" %}</span></a>
+                            <ul class="dropdown-items">
+                                <li><a href="https://www.caktusgroup.com/blog/">Developer Access</a></li>
+                                <li><a href="https://learn.caktusgroup.com/blog">Sharp Insights</a></li>
+                            </ul>
+                        </li>
+                        <li><a class="contact-button" href="https://www.caktusgroup.com/contact/">Contact</a></li>
+                    </ul>
+                </nav>
+            </div>
+        {% endblock navbar %}
+    </div><!-- /end Navbar -->
+
+    <div class="non-header">
+        <div class="cards">
+            {% for link in links %}
+                <a class="card" href={{link.url}}>
+                    <div class="card-header" style="background-color:{{link.get_color_value}};">
+                        <img class="link-logo" src={{ link.image_url }}/>
+                    </div>
+
+                    <div class="card-body">
+                        <p class="text-larger">{{ link.name }}</p>
+                        <p class="text-medium">{{ link.description }}</p>
+                        <!-- <p class="text-medium">Category: {{ link.category }}</p> -->
+                    </div>
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
+{% endraw %}
