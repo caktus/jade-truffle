@@ -95,6 +95,16 @@ jobs:
 
             pip install -r requirements/dev/dev.txt
       - save_cache_cmd
+      {% if cookiecutter.include_accessibility_tests == 'yes' %}
+      - run:
+          name: install geckodriver
+          command: |
+            curl -L https://github.com/mozilla/geckodriver/releases/download/v0.30.0/geckodriver-v0.30.0-linux64.tar.gz > geckodriver.tar.gz
+            gzip -dk geckodriver.tar.gz
+            tar xvf geckodriver.tar
+            sudo mv geckodriver /usr/local/bin
+            sudo chown root:root /usr/local/bin/geckodriver
+      {% endif %}
       - run:
         # This step is necessary to do the merge check in the
         # when condition below. Without it the local git cannot
