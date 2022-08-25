@@ -27,8 +27,9 @@ urlpatterns += [
 {% endif %}
 
 urlpatterns += [
+
 {% if cookiecutter.project_type == "django" -%}
-    path("", HomePageView.as_view(), name='index'),
+    path("", HomePageView.as_view(), name="home"),
 {% endif %}
 {% if cookiecutter.project_type == "wagtail" -%}
     path("", include(wagtail_urls)),
