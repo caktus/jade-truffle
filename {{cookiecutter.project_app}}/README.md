@@ -93,6 +93,26 @@ Install Python dependencies with:
     ({{ cookiecutter.project_app }})$ make setup
 ```
 
+{% if cookiecutter.include_accessibility_tests == 'yes' %}
+This project has been set up to run automated accessibility tests,
+which require [geckodriver](https://github.com/mozilla/geckodriver/).
+
+To install on Linux:
+
+```
+$ curl -L https://github.com/mozilla/geckodriver/releases/download/v0.30.0/geckodriver-v0.30.0-linux64.tar.gz > geckodriver.tar.gz
+$ gzip -dk geckodriver.tar.gz
+$ tar xvf geckodriver.tar
+$ mv geckodriver /usr/local/bin
+```
+
+To install on Mac:
+
+```
+$ brew install geckodriver
+```
+{% endif %}
+
 NOTE: This project uses ``pip-tools``. If the dependency `.txt` files need to be
 updated:
 
