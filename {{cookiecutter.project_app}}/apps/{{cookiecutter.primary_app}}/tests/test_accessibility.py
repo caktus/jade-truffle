@@ -1,4 +1,4 @@
-{% if cookiecutter.testing_type == 'django' %}
+{% if cookiecutter.project_type == 'django' and cookiecutter.testing_type == 'django' %}
 from axe_selenium_python import Axe
 from selenium import webdriver
 
@@ -6,8 +6,33 @@ from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from django.db import connections
 from django.shortcuts import reverse
 from django.test import override_settings
+{% elif cookiecutter.project_type == 'django' and cookiecutter.testing_type == 'pytest' %}
+import pytest
+from axe_selenium_python import Axe
+from selenium import webdriver
+
+from django.shortcuts import reverse
+{% elif cookiecutter.project_type == 'wagtail' and cookiecutter.testing_type == 'django' %}
+from axe_selenium_python import Axe
+from selenium import webdriver
+from wagtail.core.models import Page
+
+from django.contrib.staticfiles.testing import StaticLiveServerTestCase
+from django.db import connections
+from django.shortcuts import reverse
+from django.test import override_settings
+{% elif cookiecutter.project_type == 'wagtail' and cookiecutter.testing_type == 'pytest' %}
+import pytest
+from axe_selenium_python import Axe
+from selenium import webdriver
+import wagtail_factories
+
+from wagtail.core.models import Locale, Page
+from wagtail.models.sites import Site
+{% endif %}
 
 
+{% if cookiecutter.testing_type == 'django' %}
 @override_settings(
     STATICFILES_STORAGE="whitenoise.storage.CompressedStaticFilesStorage"
 )
@@ -41,10 +66,23 @@ class TestAccessibility(StaticLiveServerTestCase):
 
     def test_pages(self):
         """Run accessibility tests on pages of the site."""
+        {% if cookiecutter.project_type == 'django' %}
         subtests = (
             # page_name, page_url
             ("homepage", reverse("home")),
         )
+        {% elif cookiecutter.project_type == 'wagtail' %}
+        # Find the homepage.
+        homepage = None
+        for page in Page.objects.all():
+            if page.is_site_root():
+                homepage = page
+
+        subtests = (
+            # page_name, page_url
+            ("homepage", homepage.url),
+        )
+        {% endif %}
         for page_name, page_url in subtests:
             with self.subTest(page_name=page_name, page_url=page_url):
                 url = self.live_server_url + page_url
@@ -88,14 +126,49 @@ class TestAccessibility(StaticLiveServerTestCase):
 
         super().tearDown()
 {% elif cookiecutter.testing_type == 'pytest' %}
-import pytest
-from axe_selenium_python import Axe
-from selenium import webdriver
 
-from django.shortcuts import reverse
+{% if cookiecutter.project_type == 'wagtail' %}
+@pytest.fixture
+def homepage():
+    """Create a homepage."""
+    # Create the homepage.
+    locale = Locale.objects.create()
+    homepage = wagtail_factories.PageFactory(locale=locale)
+    # Make sure that the homepage is the root page of the the current Site.
+    site = Site.objects.first()
+    if site:
+        site.root_page = homepage
+        site.save()
+    else:
+        site = Site.objects.create(root_page=homepage)
+    return homepage
 
 
+@pytest.fixture
+def pages_for_accessibility_tests(homepage):
+    """Create Pages for accessibility tests."""
+    # Create other pages for accessibility tests here.
+
+    # Return a dictionary of page_name: page. For example,
+    # {"homepage": homepage, "pictures_page": pictures_page}. The keys of this
+    # dictionary should match the page_name values in the test_accessibility_on_pages().
+    return {"homepage": homepage}
+
+
+@pytest.fixture
+def page_url(request, pages_for_accessibility_tests):
+    """Return the URL for a Wagtail Page."""
+    # Get the Page for the request.param (which is the page_name, and should match
+    # a key from the pages_for_accessibility_tests).
+    page = pages_for_accessibility_tests.get(request.param)
+    return page.url
+{% endif %}
+
+{% if cookiecutter.project_type == 'django' %}
 @pytest.mark.parametrize("page_name,page_url", [("homepage", reverse("home"))])
+{% elif cookiecutter.project_type == 'wagtail' %}
+@pytest.mark.parametrize("page_name,page_url", [("homepage", "homepage")], indirect=["page_url"])
+{% endif %}
 def test_accessibility_on_pages(
     live_server, django_db_serialized_rollback, settings, page_name, page_url
 ):
