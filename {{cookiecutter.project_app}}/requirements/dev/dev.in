@@ -27,3 +27,7 @@ pytest-subtests
 {% if cookiecutter.project_type == 'django' %}
 beautifulsoup4
 {% endif %}
+
+{% if cookiecutter.project_type == 'wagtail' %}
+wagtail-factories
+{% endif %}
