@@ -12,7 +12,9 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
-
+{% if cookiecutter.project_type == 'wagtail' %}
+import sys
+{% endif %}
 
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE_DIR = os.path.dirname(PROJECT_DIR)
@@ -59,6 +61,18 @@ INSTALLED_APPS += [
     "wagtail.contrib.styleguide",
     "wagtail.contrib.modeladmin",
 ]
+
+{% if cookiecutter.project_type == 'wagtail' %}
+# Note: having "wagtail.contrib.search_promotions" installed prevents a bug
+# when running tests with Django's LiveServerTestCase. For more information,
+# see https://github.com/wagtail/wagtail/issues/1824.
+{% if cookiecutter.testing_type == 'django' %}
+if "test" in sys.argv and "wagtail.contrib.search_promotions" not in INSTALLED_APPS:
+{% elif cookiecutter.testing_type == 'pytest' %}
+if "pytest" in " ".join(sys.argv) and "wagtail.contrib.search_promotions" not in INSTALLED_APPS:
+{% endif %}
+    INSTALLED_APPS += ["wagtail.contrib.search_promotions"]
+{% endif %}
 
 WAGTAILSEARCH_BACKENDS = {
     'default': {
