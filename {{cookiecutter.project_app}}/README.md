@@ -110,6 +110,10 @@ To install on Mac:
 ```
 $ brew install geckodriver
 ```
+
+{% if cookiecutter.testing_type == 'pytest' %}
+Note that accessibility tests run before migration checks, so any test errors in the accessibility tests will be output before any of the migration information. You may need to scroll up further than you expect in order to see the accessibility test errors, beginning with ``Accessibility violations:``
+{% endif %}
 {% endif %}
 
 NOTE: This project uses ``pip-tools``. If the dependency `.txt` files need to be
