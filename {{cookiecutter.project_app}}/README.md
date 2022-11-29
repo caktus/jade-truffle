@@ -102,7 +102,7 @@ To install on Linux:
 ```
 $ curl -L https://github.com/mozilla/geckodriver/releases/download/v0.30.0/geckodriver-v0.30.0-linux64.tar.gz > geckodriver.tar.gz
 $ tar -zxvf geckodriver.tar.gz
-$ mv geckodriver /usr/local/bin
+$ sudo mv geckodriver /usr/local/bin
 ```
 
 To install on Mac:
