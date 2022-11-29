@@ -25,6 +25,9 @@ def clean_project():
     if "{{cookiecutter.project_type}}" == "django":
         shutil.rmtree((Path("./apps/search")))
 
+    if "{{cookiecutter.include_accessibility_tests}}" == "no":
+        Path("./apps/{{cookiecutter.primary_app}}/tests/test_accessibility.py").unlink()
+
     print("Renaming .envrc")
     Path(Path().cwd(), ".envrc_template").rename(Path(Path().cwd(), ".envrc"))
 

@@ -13,6 +13,9 @@ boto
 
 # For testing
 factory_boy
+{% if cookiecutter.include_accessibility_tests == 'yes' %}
+axe-selenium-python==2.1.6
+{% endif %}
 
 {% if cookiecutter.testing_type == 'pytest' %}
 pytest
@@ -23,4 +26,8 @@ pytest-subtests
 
 {% if cookiecutter.project_type == 'django' %}
 beautifulsoup4
+{% endif %}
+
+{% if cookiecutter.project_type == 'wagtail' %}
+wagtail-factories
 {% endif %}

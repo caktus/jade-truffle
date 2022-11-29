@@ -51,6 +51,17 @@ jobs:
           python3 -m venv env
           . env/bin/activate
           make setup
+      {% if cookiecutter.include_accessibility_tests == 'yes' %}
+      #----------------------------------------------
+      # install geckodriver
+      #----------------------------------------------
+      - name: Install geckodriver
+        run: |
+            curl -L https://github.com/mozilla/geckodriver/releases/download/v0.30.0/geckodriver-v0.30.0-linux64.tar.gz > geckodriver.tar.gz
+            tar -zxvf geckodriver.tar.gz
+            sudo mv geckodriver /usr/local/bin
+            sudo chown root:root /usr/local/bin/geckodriver
+      {% endif %}
       #----------------------------------------------
       # install your root project, if required
       #----------------------------------------------

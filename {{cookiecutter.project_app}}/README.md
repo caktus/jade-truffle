@@ -93,6 +93,29 @@ Install Python dependencies with:
     ({{ cookiecutter.project_app }})$ make setup
 ```
 
+{% if cookiecutter.include_accessibility_tests == 'yes' %}
+This project has been set up to run automated accessibility tests,
+which require [geckodriver](https://github.com/mozilla/geckodriver/).
+
+To install on Linux:
+
+```
+$ curl -L https://github.com/mozilla/geckodriver/releases/download/v0.30.0/geckodriver-v0.30.0-linux64.tar.gz > geckodriver.tar.gz
+$ tar -zxvf geckodriver.tar.gz
+$ sudo mv geckodriver /usr/local/bin
+```
+
+To install on Mac:
+
+```
+$ brew install geckodriver
+```
+
+{% if cookiecutter.testing_type == 'pytest' %}
+Note that accessibility tests run before migration checks, so any test errors in the accessibility tests will be output before any of the migration information. You may need to scroll up further than you expect in order to see the accessibility test errors, beginning with ``Accessibility violations:``
+{% endif %}
+{% endif %}
+
 NOTE: This project uses ``pip-tools``. If the dependency `.txt` files need to be
 updated:
 
